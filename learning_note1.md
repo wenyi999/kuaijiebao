@@ -3,7 +3,7 @@
 # 陈永桦
 # 原因
 经小组讨论决定在前端选取react框架，由于我在学期中选择vue作为开发框架，对react 及其UI组件库没有太多的经验，
-所以这两天准备开始学习相关知识。
+所以这几天课余时间准备开始学习相关知识。
 
 学习内容主要为react 及其UI库的简易使用。
 
@@ -20,5 +20,5 @@ https://www.bilibili.com/video/av22504834?from=search&seid=12633186450885014533
 由于Ant design 应用到了ES6、ES2015，所以寻找教程http://jsrun.net/tutorial/cZKKp
 了解ES6新特性
 
-# 学习结果
-暂无
+# 学习成果
+1.初步掌握了react开发技术，并对antd这个ui组件做了一定的尝试
