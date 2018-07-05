@@ -1,0 +1,21 @@
+.wrapper {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .body {
+    width: 360px;
+    box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, .3);
+  }
+  
+  .form {
+    margin-top: 12px;
+    padding: 24px;
+    width: 200px
+  }
+  
+  .btn {
+    width: 100%;
+  }
