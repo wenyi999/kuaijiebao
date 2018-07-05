@@ -22,3 +22,4 @@ https://www.bilibili.com/video/av22504834?from=search&seid=12633186450885014533
 
 # 学习成果
 1.初步掌握了react开发技术，并对antd这个ui组件做了一定的尝试
+2.尝试开始设计前端页面布局
