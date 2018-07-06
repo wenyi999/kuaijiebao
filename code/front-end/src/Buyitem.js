@@ -1,15 +1,14 @@
-
 import {Affix, Row, Col, Divider} from 'antd';
 import React, {Component} from 'react';
 import {Link} from "react-keeper";
 
-class Debtsmanagement extends Component {
+class Buyitem extends Component {
     render() {
 
         return (
-            <div>Debtsmanagement</div>
+            <div>Buyitem</div>
         )
     }
 }
 
-export default Debtsmanagement;
+export default Buyitem;

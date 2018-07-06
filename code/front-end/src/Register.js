@@ -28,7 +28,7 @@ const residences = [{
     }],
 }];
 
-class Loanapply extends Component {
+class Register extends Component {
     state = {
         confirmDirty: false,
         autoCompleteResult: [],
@@ -248,9 +248,9 @@ class Loanapply extends Component {
 
 }
 
-Loanapply = Form.create()(Loanapply);
+Register = Form.create()(Register);
 
 
 
 
-export default Loanapply;
+export default Register;

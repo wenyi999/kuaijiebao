@@ -1,92 +1,55 @@
-import React from 'react';
-import { Icon, Form, Input, Button, message } from 'antd';
-import { post } from './request';
-import style from './Login.css';
-import proptypes from 'prop-types';
-
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import React, {Component} from 'react';
+import './Login.css';
 const FormItem = Form.Item;
 
-class Login extends React.Component {
-    constructor () {
-        super();
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
 
-    handleSubmit (e) {
+class Login extends Component {
+    handleSubmit = (e) => {
         e.preventDefault();
-
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                post('http://localhost:3000/login', values)
-                    .then((res) => {
-                        if (res) {
-                            message.info('登录成功');
-                            this.context.router.push('/');
-                        } else {
-                            message.info('登录失败，账号或密码错误');
-                        }
-                    });
+                console.log('Received values of form: ', values);
             }
         });
     }
 
-    render () {
-        const {form} = this.props;
-        const {getFieldDecorator} = form;
+    render() {
+        const { getFieldDecorator } = this.props.form;
         return (
-            <div className={style.wrapper}>
-
-                <div className={style.body}>
-                    <header className={style.header}>
-                        欢迎来到本P2P在线平台
-                    </header>
-
-                    <section className={style.form}>
-
-                        <Form onSubmit={this.handleSubmit}>
-                            <FormItem>
-                                {getFieldDecorator('account', {
-                                    rules: [
-                                        {
-                                            required: true,
-                                            message: '请输入管理员账号',
-                                            type: 'string'
-                                        }
-                                    ]
-                                })(
-                                    <Input type="text" addonBefore={<Icon type="user"/>}/>
-                                )}
-                            </FormItem>
-
-                            <FormItem>
-                                {getFieldDecorator('password', {
-                                    rules: [
-                                        {
-                                            required: true,
-                                            message: '请输入密码',
-                                            type: 'string'
-                                        }
-                                    ]
-                                })(
-                                    <Input type="password" addonBefore={<Icon type="lock"/>}/>
-                                )}
-                            </FormItem>
-
-                            <Button className={style.btn} type="primary" htmlType="submit">Sign In</Button>
-                        </Form>
-
-                    </section>
-
-                </div>
-
-            </div>
+            <Form onSubmit={this.handleSubmit} className="login-form">
+                <FormItem>
+                    {getFieldDecorator('userName', {
+                        rules: [{ required: true, message: 'Please input your username!' }],
+                    })(
+                        <Input prefix={<Icon type="user"  style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" width="500px"/>
+                    )}
+                </FormItem>
+                <FormItem>
+                    {getFieldDecorator('password', {
+                        rules: [{ required: true, message: 'Please input your Password!' }],
+                    })(
+                        <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" width="500px"/>
+                    )}
+                </FormItem>
+                <FormItem>
+                    {getFieldDecorator('remember', {
+                        valuePropName: 'checked',
+                        initialValue: true,
+                    })(
+                        <Checkbox>Remember me</Checkbox>
+                    )}
+                    <a className="login-form-forgot" href="">Forgot password</a>
+                    <Button type="primary" htmlType="submit" className="login-form-button">
+                        Log in
+                    </Button>
+                    Or <a href="">register now!</a>
+                </FormItem>
+            </Form>
         );
     }
 }
 
-Login.contextTypes = {
-    router: proptypes.object.isRequired
-};
 
 Login = Form.create()(Login);
 
