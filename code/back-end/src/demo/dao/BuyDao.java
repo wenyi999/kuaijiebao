@@ -1,0 +1,44 @@
+package demo.dao;
+
+import demo.domain.BuyEntity;
+import demo.util.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import java.util.List;
+
+
+public class BuyDao {
+    public BuyDao(){}
+
+    public void add(BuyEntity buyEntity){
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            Transaction tx = session.beginTransaction(); // 开启事务
+            session.save(buyEntity);
+            System.out.print("save success");
+            tx.commit(); // 提交事务
+        } catch (RuntimeException e) {
+            session.getTransaction().rollback(); // 回滚事务
+            throw e;
+        } finally {
+            session.close(); // 关闭session
+        }
+    }
+
+    public List<BuyEntity> getByUsername(String name) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            List<BuyEntity> buyEntityList = (List<BuyEntity>) session.createQuery("from BuyEntity where username = ?").setParameter(0,name).list();// 操作
+            tx.commit();
+            return buyEntityList;
+        } catch (RuntimeException e) {
+            tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+}

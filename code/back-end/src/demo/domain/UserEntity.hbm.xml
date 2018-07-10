@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="demo.domain.UserEntity" table="user" schema="kjb">
+        <id name="uId">
+            <column name="u_id" sql-type="int(11)"/>
+            <generator class="increment"/>
+        </id>
+        <property name="username">
+            <column name="username" sql-type="varchar(255)"/>
+        </property>
+        <property name="password">
+            <column name="password" sql-type="varchar(255)"/>
+        </property>
+        <property name="id">
+            <column name="ID" sql-type="int(18)"/>
+        </property>
+        <property name="phone">
+            <column name="phone" sql-type="int(11)"/>
+        </property>
+        <property name="name">
+            <column name="name" sql-type="varchar(255)"/>
+        </property>
+        <property name="credit">
+            <column name="credit" sql-type="int(11)"/>
+        </property>
+        <property name="lineOfCredit">
+            <column name="line-of-credit" sql-type="int(11)"/>
+        </property>
+    </class>
+</hibernate-mapping>
