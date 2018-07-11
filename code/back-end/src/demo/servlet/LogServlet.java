@@ -8,7 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +18,7 @@ import java.io.PrintWriter;
 /**
  * Servlet implementation class LogServlet
  */
-@WebServlet("/UserLog")
+
 public class LogServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +35,6 @@ public class LogServlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-		    //System.out.println("here!\n");
             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
             Transaction tx = session.beginTransaction();
             PrintWriter out = response.getWriter();
@@ -90,25 +88,18 @@ public class LogServlet extends HttpServlet {
             Transaction tx = session.beginTransaction();
             PrintWriter out = response.getWriter();
             response.setContentType("text/html;charset=utf-8");
-
-            System.out.println("addServlet invoke!");
-
             String username = (String) request.getParameter("username");
+            System.out.print(username);
             String password = (String) request.getParameter("password");
             String name = (String) request.getParameter("name");
             int phone = Integer.parseInt(request.getParameter("phone"));
             int ID = Integer.parseInt(request.getParameter("ID"));
             int credit = Integer.parseInt(request.getParameter("credit"));
             int line = Integer.parseInt(request.getParameter("line-of-credit"));
-
             UserDao dao = new UserDao();
             UserEntity user = dao.getByUsername(username);
-            System.out.println(user);
-
             if (user != null){  /*user存在*/
-                System.out.println("exist!\n");
                 out.print("USERERROR");
-
             }else {
                 UserEntity newuser = new UserEntity();
                 newuser.setUsername(username);
@@ -118,16 +109,13 @@ public class LogServlet extends HttpServlet {
                 newuser.setPhone(phone);
                 newuser.setCredit(credit);
                 newuser.setLineOfCredit(line);
-                System.out.println(newuser);
                 dao.add(newuser);
                 out.print("ADDUSER");
             }
             tx.commit();
             session.close();
-            //HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().commit();
             out.flush();
             out.close();
-
         }
         catch (Exception ex) {
             //HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().rollback();
