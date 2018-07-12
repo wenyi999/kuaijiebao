@@ -6,7 +6,7 @@
 
     <class name="demo.domain.ApplyEntity" table="apply" schema="kjb">
         <id name="aId">
-            <column name="a_id" sql-type="int(11)"/>
+            <column name="aid" sql-type="int(11)"/>
             <generator class="increment"/>
         </id>
         <property name="username">
@@ -22,7 +22,7 @@
             <column name="repaytime" sql-type="int(11)"/>
         </property>
         <property name="creditorName">
-            <column name="creditor_name" sql-type="varchar(255)"/>
+            <column name="creditorname" sql-type="varchar(255)"/>
         </property>
         <property name="status">
             <column name="status" sql-type="int(255)"/>

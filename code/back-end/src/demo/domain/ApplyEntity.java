@@ -17,7 +17,7 @@ public class ApplyEntity {
     private int status;
 
     @Id
-    @Column(name = "a_id", nullable = false)
+    @Column(name = "aid", nullable = false)
     public int getaId() {
         return aId;
     }
@@ -67,7 +67,7 @@ public class ApplyEntity {
     }
 
     @Basic
-    @Column(name = "creditor_name", nullable = false, length = 255)
+    @Column(name = "creditorname", nullable = false, length = 255)
     public String getCreditorName() {
         return creditorName;
     }

@@ -2,9 +2,7 @@ package demo.servlet;
 
 import demo.dao.ApplyDao;
 import demo.domain.ApplyEntity;
-import demo.util.HibernateUtil;
 import net.sf.json.JSONObject;
-import org.hibernate.Transaction;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +31,6 @@ public class ApplyServlet extends HttpServlet {
     @SuppressWarnings("unchecked")
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
             PrintWriter out = response.getWriter();
             response.setContentType("text/html;charset=utf-8");
             ApplyDao dao = new ApplyDao();
@@ -103,7 +100,6 @@ public class ApplyServlet extends HttpServlet {
                 out.println(applyJson);
                 out.flush();
                 out.close();
-                tx.commit();
             }
             else if (applyStatus.equals("1")){
                 String username=request.getParameter("username");
@@ -127,7 +123,6 @@ public class ApplyServlet extends HttpServlet {
                 out.println(applyJson);
                 out.flush();
                 out.close();
-                tx.commit();
             }
             else if (applyStatus.equals("2")){
                 String creditorname=request.getParameter("creditorname");
@@ -151,7 +146,6 @@ public class ApplyServlet extends HttpServlet {
                 out.println(applyJson);
                 out.flush();
                 out.close();
-                tx.commit();
             }
         }
         catch (Exception ex) {
@@ -169,7 +163,7 @@ public class ApplyServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+            //Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
             PrintWriter out = response.getWriter();
             response.setContentType("text/html;charset=utf-8");
 
@@ -208,7 +202,6 @@ public class ApplyServlet extends HttpServlet {
                 out.println(applyJson);
                 out.flush();
                 out.close();
-                tx.commit();
             } else {
                 String username=request.getParameter("username");
                 dao.lend(a_id,username);
@@ -233,10 +226,8 @@ public class ApplyServlet extends HttpServlet {
                 out.println(applyJson);
                 out.flush();
                 out.close();
-                tx.commit();
             }
         } catch (Exception ex) {
-            //HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().rollback();
             if (ServletException.class.isInstance(ex)) {
                 throw (ServletException) ex;
             } else {

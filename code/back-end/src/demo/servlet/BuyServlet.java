@@ -4,9 +4,7 @@ import demo.dao.BuyDao;
 import demo.dao.GoodsDao;
 import demo.domain.BuyEntity;
 import demo.domain.GoodsEntity;
-import demo.util.HibernateUtil;
 import net.sf.json.JSONObject;
-import org.hibernate.Transaction;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,15 +33,12 @@ public class BuyServlet extends HttpServlet {
     @SuppressWarnings("unchecked")
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
             PrintWriter out = response.getWriter();
             response.setContentType("text/html;charset=utf-8");
             GoodsDao dao1 = new GoodsDao();
             BuyDao dao2 = new BuyDao();
             List<GoodsEntity> result1;
             List<BuyEntity>result2;
-
-
                 String username=request.getParameter("username");
                 result1 = dao1.getByUsername(username);
                 result2=dao2.getByUsername(username);
@@ -66,7 +61,6 @@ public class BuyServlet extends HttpServlet {
                 out.println(goodsJson);
                 out.flush();
                 out.close();
-                tx.commit();
 
         }
         catch (Exception ex) {
@@ -84,7 +78,6 @@ public class BuyServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
             PrintWriter out = response.getWriter();
             response.setContentType("text/html;charset=utf-8");
             BuyDao dao = new BuyDao();
@@ -100,9 +93,7 @@ public class BuyServlet extends HttpServlet {
             out.println("购买成功");
             out.flush();
             out.close();
-            tx.commit();
         } catch (Exception ex) {
-            //HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().rollback();
             if (ServletException.class.isInstance(ex)) {
                 throw (ServletException) ex;
             } else {

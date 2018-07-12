@@ -6,7 +6,7 @@
 
     <class name="demo.domain.UserEntity" table="user" schema="kjb">
         <id name="uId">
-            <column name="u_id" sql-type="int(11)"/>
+            <column name="uid" sql-type="int(11)"/>
             <generator class="increment"/>
         </id>
         <property name="username">
@@ -16,10 +16,10 @@
             <column name="password" sql-type="varchar(255)"/>
         </property>
         <property name="id">
-            <column name="ID" sql-type="int(18)"/>
+            <column name="ID" sql-type="varchar(255)"/>
         </property>
         <property name="phone">
-            <column name="phone" sql-type="int(11)"/>
+            <column name="phone" sql-type="varchar(255)"/>
         </property>
         <property name="name">
             <column name="name" sql-type="varchar(255)"/>
@@ -28,7 +28,7 @@
             <column name="credit" sql-type="int(11)"/>
         </property>
         <property name="lineOfCredit">
-            <column name="line-of-credit" sql-type="int(11)"/>
+            <column name="line" sql-type="int(11)"/>
         </property>
     </class>
 </hibernate-mapping>

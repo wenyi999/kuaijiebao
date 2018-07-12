@@ -11,14 +11,14 @@ public class UserEntity {
     private int uId;
     private String username;
     private String password;
-    private int id;
-    private int phone;
+    private String id;
+    private String phone;
     private String name;
     private int credit;
     private int lineOfCredit;
 
     @Id
-    @Column(name = "u_id", nullable = false)
+    @Column(name = "uid", nullable = false)
     public int getuId() {
         return uId;
     }
@@ -49,21 +49,21 @@ public class UserEntity {
 
     @Basic
     @Column(name = "ID", nullable = false)
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     @Basic
     @Column(name = "phone", nullable = false)
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -88,7 +88,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "line-of-credit", nullable = false)
+    @Column(name = "line", nullable = false)
     public int getLineOfCredit() {
         return lineOfCredit;
     }
@@ -121,8 +121,8 @@ public class UserEntity {
         int result = uId;
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + id;
-        result = 31 * result + phone;
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + credit;
         result = 31 * result + lineOfCredit;

@@ -10,7 +10,7 @@
                 <column name="username" sql-type="varchar(255)"/>
             </key-property>
             <key-property name="itemName">
-                <column name="item_name" sql-type="varchar(255)"/>
+                <column name="itemname" sql-type="varchar(255)"/>
             </key-property>
         </composite-id>
         <property name="amount">

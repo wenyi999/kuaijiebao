@@ -13,7 +13,7 @@ public class GoodsEntity {
     private double itemRate;
 
     @Id
-    @Column(name = "item_name", nullable = false, length = 255)
+    @Column(name = "itemname", nullable = false, length = 255)
     public String getItemName() {
         return itemName;
     }
@@ -33,7 +33,7 @@ public class GoodsEntity {
     }
 
     @Basic
-    @Column(name = "item_rate", nullable = false, precision = 0)
+    @Column(name = "itemrate", nullable = false, precision = 0)
     public double getItemRate() {
         return itemRate;
     }

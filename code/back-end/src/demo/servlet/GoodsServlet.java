@@ -2,9 +2,7 @@ package demo.servlet;
 
 import demo.dao.GoodsDao;
 import demo.domain.GoodsEntity;
-import demo.util.HibernateUtil;
 import net.sf.json.JSONObject;
-import org.hibernate.Transaction;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +30,6 @@ public class GoodsServlet  extends HttpServlet {
     @SuppressWarnings("unchecked")
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
             PrintWriter out = response.getWriter();
             response.setContentType("text/html;charset=utf-8");
             GoodsDao dao = new GoodsDao();
@@ -53,7 +50,6 @@ public class GoodsServlet  extends HttpServlet {
                 out.println(applyJson);
                 out.flush();
                 out.close();
-                tx.commit();
         }
         catch (Exception ex) {
             if ( ServletException.class.isInstance( ex ) ) {

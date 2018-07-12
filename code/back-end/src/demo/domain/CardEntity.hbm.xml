@@ -6,7 +6,7 @@
 
     <class name="demo.domain.CardEntity" table="card" schema="kjb">
         <id name="credictNumber">
-            <column name="credict_number" sql-type="int(19)"/>
+            <column name="credictnumber" sql-type="varchar(255)"/>
         </id>
         <property name="username">
             <column name="username" sql-type="varchar(255)"/>

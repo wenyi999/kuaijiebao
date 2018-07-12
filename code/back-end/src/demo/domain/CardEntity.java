@@ -2,22 +2,19 @@ package demo.domain;
 
 import javax.persistence.*;
 
-/**
- * Created by Boyi on 2018/7/9.
- */
 @Entity
 @Table(name = "card", schema = "kjb")
 public class CardEntity {
-    private int credictNumber;
+    private String credictNumber;
     private String username;
 
     @Id
-    @Column(name = "credict_number", nullable = false)
-    public int getCredictNumber() {
+    @Column(name = "credictnumber", nullable = false)
+    public String getCredictNumber() {
         return credictNumber;
     }
 
-    public void setCredictNumber(int credictNumber) {
+    public void setCredictNumber(String credictNumber) {
         this.credictNumber = credictNumber;
     }
 
@@ -46,7 +43,7 @@ public class CardEntity {
 
     @Override
     public int hashCode() {
-        int result = credictNumber;
+        int result = credictNumber!=null?credictNumber.hashCode():0;
         result = 31 * result + (username != null ? username.hashCode() : 0);
         return result;
     }

@@ -24,7 +24,7 @@ public class BuyEntity {
     }
 
     @Id
-    @Column(name = "item_name", nullable = false, length = 255)
+    @Column(name = "itemname", nullable = false, length = 255)
     public String getItemName() {
         return itemName;
     }

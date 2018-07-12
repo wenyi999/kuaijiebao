@@ -4,9 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-/**
- * Created by Boyi on 2018/7/9.
- */
+
 public class BuyEntityPK implements Serializable {
     private String username;
     private String itemName;
@@ -21,7 +19,7 @@ public class BuyEntityPK implements Serializable {
         this.username = username;
     }
 
-    @Column(name = "item_name", nullable = false, length = 255)
+    @Column(name = "itemname", nullable = false, length = 255)
     @Id
     public String getItemName() {
         return itemName;

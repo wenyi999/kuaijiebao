@@ -2,9 +2,7 @@ package demo.servlet;
 
 import demo.dao.CardDao;
 import demo.domain.CardEntity;
-import demo.util.HibernateUtil;
 import net.sf.json.JSONObject;
-import org.hibernate.Transaction;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +29,6 @@ public class CardServlet extends HttpServlet {
     @SuppressWarnings("unchecked")
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
             PrintWriter out = response.getWriter();
             response.setContentType("text/html;charset=utf-8");
             CardDao dao = new CardDao();
@@ -45,14 +42,12 @@ public class CardServlet extends HttpServlet {
                 ArrayList<String> obj = new ArrayList<String>();
                 obj.add("username:" + username);
                 obj.add("credict_number:" + cardEntity.getCredictNumber()+"");
-                //System.out.println(obj.toString());
                 goodsJson.add(JSONObject.fromString(obj.toString()));
             }
             System.out.println(goodsJson);
             out.println(goodsJson);
             out.flush();
             out.close();
-            tx.commit();
 
         }
         catch (Exception ex) {
@@ -70,16 +65,14 @@ public class CardServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
             PrintWriter out = response.getWriter();
             response.setContentType("text/html;charset=utf-8");
             CardDao dao = new CardDao();
-            //String item_name=request.getParameter("item_name");
             String CredictNumber=request.getParameter("credict_number");
             String cardStatus=request.getParameter("card_status");
             String username=request.getParameter("username");
             CardEntity cardEntity = null;
-            cardEntity.setCredictNumber(Integer.parseInt(CredictNumber));
+            cardEntity.setCredictNumber(CredictNumber);
             cardEntity.setUsername(username);
             if (cardStatus.equals("0")){
                 CardEntity cardEntity2=dao.getByCredictNumber(CredictNumber);
@@ -104,10 +97,8 @@ public class CardServlet extends HttpServlet {
             }
             out.flush();
             out.close();
-            tx.commit();
         }
         catch (Exception ex) {
-            //HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().rollback();
             if (ServletException.class.isInstance(ex)) {
                 throw (ServletException) ex;
             } else {
