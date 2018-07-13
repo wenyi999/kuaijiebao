@@ -36,22 +36,32 @@ public class ApplyServlet extends HttpServlet {
             ApplyDao dao = new ApplyDao();
             List<ApplyEntity> result;
             String applyStatus=request.getParameter("applyStatus");
-            if (applyStatus.equals("0")){
+            if (applyStatus.equals("0")){//查看所有借款申请
                 result = dao.getAll();
                 Iterator<ApplyEntity> it = result.iterator();
                 ArrayList<JSONObject> applyJson = new ArrayList<JSONObject>();
             while (it.hasNext()) {
                 ApplyEntity apply = (ApplyEntity) it.next();
-                ArrayList<String> obj = new ArrayList<String>();
-                obj.add("a_id:" + apply.getaId() + "");
-                obj.add("username:" + apply.getUsername());
-                obj.add("creditor_name:" + apply.getCreditorName());
-                obj.add("amount:" + apply.getAmount() + "");
-                obj.add("rate:" + apply.getRate() + "");
-                obj.add("repaytime:" + apply.getRepaytime() + "");
-                obj.add("status:" + apply.getStatus() + "");
+                JSONObject obj = new JSONObject();
+                obj.put("a_id",  apply.getAid() + "");
+                obj.put("username" , apply.getUsername());
+                obj.put("creditor_name" , apply.getCreditorname());
+                obj.put("amount" , apply.getAmount() + "");
+                obj.put("rate" , apply.getRate() + "");
+                obj.put("repaytime" , apply.getRepaytime() + "");
+                int status=apply.getStatus();
+                if (status==0)
+                {
+                    obj.put("status" , "notLend");
+                }
+                else if (status==1){
+                    obj.put("status" , "Lent");
+                }
+                else if (status==2){
+                    obj.put("status" , "payOff");
+                }
                 System.out.println(obj.toString());
-                applyJson.add(JSONObject.fromString(obj.toString()));
+                applyJson.add(obj);
             }
                 /*Mongo mongo = new Mongo();
                 MongoClient mongoClient = new MongoClient("localhost", 27017);
@@ -97,53 +107,75 @@ public class ApplyServlet extends HttpServlet {
                 JSONArray applys = JSONArray.fromArray(booksDB.toArray());*/
 
                 System.out.println(applyJson);
-                out.println(applyJson);
+                out.print(applyJson);
                 out.flush();
                 out.close();
             }
-            else if (applyStatus.equals("1")){
+            else if (applyStatus.equals("1")){//自己的借款申请
                 String username=request.getParameter("username");
                 result = dao.getByUsername(username);
                 Iterator<ApplyEntity> it = result.iterator();
                 ArrayList<JSONObject> applyJson = new ArrayList<JSONObject>();
                 while (it.hasNext()) {
                     ApplyEntity apply = (ApplyEntity) it.next();
-                    ArrayList<String> obj = new ArrayList<String>();
-                    obj.add("a_id:" + apply.getaId() + "");
-                    obj.add("username:" + apply.getUsername());
-                    obj.add("creditor_name:" + apply.getCreditorName());
-                    obj.add("amount:" + apply.getAmount() + "");
-                    obj.add("rate:" + apply.getRate() + "");
-                    obj.add("repaytime:" + apply.getRepaytime() + "");
-                    obj.add("status:" + apply.getStatus() + "");
+                    JSONObject obj = new JSONObject();
+                    obj.put("a_id",  apply.getAid() + "");
+                    obj.put("username" , apply.getUsername());
+                    obj.put("creditor_name" , apply.getCreditorname());
+                    obj.put("amount" , apply.getAmount() + "");
+                    obj.put("rate" , apply.getRate() + "");
+                    obj.put("repaytime" , apply.getRepaytime() + "");
+                    int status=apply.getStatus();
+                    if (status==0)
+                    {
+                        obj.put("status" , "notLend");
+                    }
+                    else if (status==1){
+                        obj.put("status" , "Lent");
+                    }
+                    else if (status==2){
+                        obj.put("status" , "payOff");
+                    }
                     System.out.println(obj.toString());
-                    applyJson.add(JSONObject.fromString(obj.toString()));
+                    applyJson.add(obj);
                 }
                 System.out.println(applyJson);
-                out.println(applyJson);
+                out.print(applyJson);
                 out.flush();
                 out.close();
             }
-            else if (applyStatus.equals("2")){
-                String creditorname=request.getParameter("creditorname");
+            else if (applyStatus.equals("2")){//我的债权
+                String creditorname=request.getParameter("creditor_name");
+
                 result = dao.getByCreditorName(creditorname);
+                System.out.print(result);
                 Iterator<ApplyEntity> it = result.iterator();
                 ArrayList<JSONObject> applyJson = new ArrayList<JSONObject>();
                 while (it.hasNext()) {
                     ApplyEntity apply = (ApplyEntity) it.next();
-                    ArrayList<String> obj = new ArrayList<String>();
-                    obj.add("a_id:" + apply.getaId() + "");
-                    obj.add("username:" + apply.getUsername());
-                    obj.add("creditor_name:" + apply.getCreditorName());
-                    obj.add("amount:" + apply.getAmount() + "");
-                    obj.add("rate:" + apply.getRate() + "");
-                    obj.add("repaytime:" + apply.getRepaytime() + "");
-                    obj.add("status:" + apply.getStatus() + "");
+                    JSONObject obj = new JSONObject();
+                    obj.put("a_id",  apply.getAid() + "");
+                    obj.put("username" , apply.getUsername());
+                    obj.put("creditor_name" , apply.getCreditorname());
+                    obj.put("amount" , apply.getAmount() + "");
+                    obj.put("rate" , apply.getRate() + "");
+                    obj.put("repaytime" , apply.getRepaytime() + "");
+                    int status=apply.getStatus();
+                    if (status==0)
+                    {
+                        obj.put("status" , "notLend");
+                    }
+                    else if (status==1){
+                        obj.put("status" , "Lent");
+                    }
+                    else if (status==2){
+                        obj.put("status" , "payOff");
+                    }
                     System.out.println(obj.toString());
-                    applyJson.add(JSONObject.fromString(obj.toString()));
+                    applyJson.add(obj);
                 }
                 System.out.println(applyJson);
-                out.println(applyJson);
+                out.print(applyJson);
                 out.flush();
                 out.close();
             }
@@ -170,62 +202,103 @@ public class ApplyServlet extends HttpServlet {
             System.out.println("PostServlet invoke!");
 
             String applyStatus = request.getParameter("applyStatus");
-            int a_id = parseInt(request.getParameter("a_id"), 11);
+            //int a_id = parseInt(request.getParameter("a_id"), 11);
             List<ApplyEntity> result;
             ApplyDao dao = new ApplyDao();
             /*Mongo mongo=new Mongo();
             MongoClient mongoClient = new MongoClient("localhost",	27017);
             DB db =	mongoClient.getDB(	"bookinfo"	);
             DBCollection coll =	db.getCollection("books");*/
-            if (applyStatus.equals("3")) {
+            if (applyStatus.equals("3")) {//还款
+                int a_id = parseInt(request.getParameter("a_id"), 11);
                 dao.PayBack(a_id);
-                //BasicDBObject query = new BasicDBObject("id", new BasicDBObject("title", title));
-                //coll.findAndRemove(new BasicDBObject("id", id));
+
                 String username=request.getParameter("username");
                 result = dao.getByUsername(username);
                 Iterator<ApplyEntity> it = result.iterator();
                 ArrayList<JSONObject> applyJson = new ArrayList<JSONObject>();
                 while (it.hasNext()) {
-                    ApplyEntity apply = (ApplyEntity) it.next();
-                    ArrayList<String> obj = new ArrayList<String>();
-                    obj.add("a_id:" + apply.getaId() + "");
-                    obj.add("username:" + apply.getUsername());
-                    obj.add("creditor_name:" + apply.getCreditorName());
-                    obj.add("amount:" + apply.getAmount() + "");
-                    obj.add("rate:" + apply.getRate() + "");
-                    obj.add("repaytime:" + apply.getRepaytime() + "");
-                    obj.add("status:" + apply.getStatus() + "");
+                    ApplyEntity apply =  it.next();
+                    JSONObject obj = new JSONObject();
+                    obj.put("a_id",  apply.getAid() + "");
+                    obj.put("username" , apply.getUsername());
+                    obj.put("creditor_name" , apply.getCreditorname());
+                    obj.put("amount" , apply.getAmount() + "");
+                    obj.put("rate" , apply.getRate() + "");
+                    obj.put("repaytime" , apply.getRepaytime() + "");
+                    int status=apply.getStatus();
+                    if (status==0)
+                    {
+                        obj.put("status" , "notLend");
+                    }
+                    else if (status==1){
+                        obj.put("status" , "Lent");
+                    }
+                    else if (status==2){
+                        obj.put("status" , "payOff");
+                    }
                     System.out.println(obj.toString());
-                    applyJson.add(JSONObject.fromString(obj.toString()));
+                    applyJson.add(obj);
                 }
                 System.out.println(applyJson);
-                out.println(applyJson);
+                out.print(applyJson);
                 out.flush();
                 out.close();
-            } else {
+            } else if (applyStatus.equals("4")){//出借
+                System.out.print(request.getParameter("a_id"));
+                int a_id = parseInt(request.getParameter("a_id"), 11);
                 String username=request.getParameter("username");
                 dao.lend(a_id,username);
-                String creditorname=request.getParameter("creditorname");
-                result = dao.getByCreditorName(creditorname);
+                //String username=request.getParameter("username");
+                result = dao.getAll();
                 Iterator<ApplyEntity> it = result.iterator();
                 ArrayList<JSONObject> applyJson = new ArrayList<JSONObject>();
                 while (it.hasNext()) {
-                    ApplyEntity apply = (ApplyEntity) it.next();
-                    ArrayList<String> obj = new ArrayList<String>();
-                    obj.add("a_id:" + apply.getaId() + "");
-                    obj.add("username:" + apply.getUsername());
-                    obj.add("creditor_name:" + apply.getCreditorName());
-                    obj.add("amount:" + apply.getAmount() + "");
-                    obj.add("rate:" + apply.getRate() + "");
-                    obj.add("repaytime:" + apply.getRepaytime() + "");
-                    obj.add("status:" + apply.getStatus() + "");
+                    ApplyEntity apply =  it.next();
+                    JSONObject obj = new JSONObject();
+                    obj.put("a_id",  apply.getAid() + "");
+                    obj.put("username" , apply.getUsername());
+                    obj.put("creditor_name" , apply.getCreditorname());
+                    obj.put("amount" , apply.getAmount() + "");
+                    obj.put("rate" , apply.getRate() + "");
+                    obj.put("repaytime" , apply.getRepaytime() + "");
+                    int status=apply.getStatus();
+                    if (status==0)
+                    {
+                        obj.put("status" , "notLend");
+                    }
+                    else if (status==1){
+                        obj.put("status" , "Lent");
+                    }
+                    else if (status==2){
+                        obj.put("status" , "payOff");
+                    }
                     System.out.println(obj.toString());
-                    applyJson.add(JSONObject.fromString(obj.toString()));
+                    applyJson.add(obj);
                 }
-                System.out.println(applyJson);
-                out.println(applyJson);
+                out.print(applyJson);
                 out.flush();
                 out.close();
+            }else {//新建申请
+                //String creditorname=request.getParameter("creditorname");
+                String username=request.getParameter("username");
+                String creditor=request.getParameter("creditor_name");
+                Double amount=Double.parseDouble(request.getParameter("amount"));
+                Double rate=Double.parseDouble(request.getParameter("rate"));
+                int repaytime=Integer.parseInt(request.getParameter("repaytime"));
+                System.out.print(repaytime);
+                int status=Integer.parseInt(request.getParameter("status"));
+                System.out.print(status);
+                ApplyEntity applyEntity = new ApplyEntity();
+                applyEntity.setUsername(username);
+                applyEntity.setAmount(amount);
+                applyEntity.setRate(rate);
+                applyEntity.setRepaytime(repaytime);
+                applyEntity.setCreditorname(creditor);
+                applyEntity.setStatus(status);
+                dao.add(applyEntity);
+                System.out.print(applyEntity);
+                out.print("applyAdded");
             }
         } catch (Exception ex) {
             if (ServletException.class.isInstance(ex)) {

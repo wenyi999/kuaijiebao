@@ -3,28 +3,28 @@ package demo.domain;
 import javax.persistence.*;
 
 /**
- * Created by Boyi on 2018/7/9.
+ * Created by Boyi on 2018/7/13.
  */
 @Entity
-@Table(name = "user", schema = "kjb")
+@Table(name = "user", schema = "kjb", catalog = "")
 public class UserEntity {
-    private int uId;
+    private int uid;
     private String username;
     private String password;
     private String id;
     private String phone;
     private String name;
     private int credit;
-    private int lineOfCredit;
+    private int line;
 
     @Id
     @Column(name = "uid", nullable = false)
-    public int getuId() {
-        return uId;
+    public int getUid() {
+        return uid;
     }
 
-    public void setuId(int uId) {
-        this.uId = uId;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     @Basic
@@ -48,7 +48,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID", nullable = false, length = 255)
     public String getId() {
         return id;
     }
@@ -58,7 +58,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "phone", nullable = false)
+    @Column(name = "phone", nullable = false, length = 255)
     public String getPhone() {
         return phone;
     }
@@ -89,12 +89,12 @@ public class UserEntity {
 
     @Basic
     @Column(name = "line", nullable = false)
-    public int getLineOfCredit() {
-        return lineOfCredit;
+    public int getLine() {
+        return line;
     }
 
-    public void setLineOfCredit(int lineOfCredit) {
-        this.lineOfCredit = lineOfCredit;
+    public void setLine(int line) {
+        this.line = line;
     }
 
     @Override
@@ -104,13 +104,13 @@ public class UserEntity {
 
         UserEntity that = (UserEntity) o;
 
-        if (uId != that.uId) return false;
-        if (id != that.id) return false;
-        if (phone != that.phone) return false;
+        if (uid != that.uid) return false;
         if (credit != that.credit) return false;
-        if (lineOfCredit != that.lineOfCredit) return false;
+        if (line != that.line) return false;
         if (username != null ? !username.equals(that.username) : that.username != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
 
         return true;
@@ -118,14 +118,14 @@ public class UserEntity {
 
     @Override
     public int hashCode() {
-        int result = uId;
+        int result = uid;
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + credit;
-        result = 31 * result + lineOfCredit;
+        result = 31 * result + line;
         return result;
     }
 }

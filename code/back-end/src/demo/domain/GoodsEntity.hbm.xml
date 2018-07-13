@@ -5,13 +5,13 @@
 <hibernate-mapping>
 
     <class name="demo.domain.GoodsEntity" table="goods" schema="kjb">
-        <id name="itemName">
+        <id name="itemname">
             <column name="itemname" sql-type="varchar(255)"/>
         </id>
         <property name="price">
             <column name="price" sql-type="float(10,2)" precision="10" scale="2"/>
         </property>
-        <property name="itemRate">
+        <property name="itemrate">
             <column name="itemrate" sql-type="float" precision="-1"/>
         </property>
     </class>

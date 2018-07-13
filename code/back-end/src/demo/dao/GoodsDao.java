@@ -6,15 +6,16 @@ import demo.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class GoodsDao {
-    public List<GoodsEntity> getAll(){
+    public List<GoodsEntity> getAll() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tx = null;
+        Transaction tx = session.beginTransaction();
         try {
-            tx = session.beginTransaction();
+
 
             // 方式一：使用HQL语句
             @SuppressWarnings("unchecked")
@@ -25,23 +26,23 @@ public class GoodsDao {
         } catch (RuntimeException e) {
             tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
     public List<GoodsEntity> getByUsername(String name) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tx = null;
+        Transaction tx = session.beginTransaction();
         try {
-            tx = session.beginTransaction();
-            List<BuyEntity> BuyEntityList = (List<BuyEntity>) session.createQuery("from BuyEntity where username = ?").setParameter(0,name).list();// 操作
-            Iterator iterator=BuyEntityList.iterator();
-            List<GoodsEntity> goodsEntityList = null;
-            while (iterator.hasNext()){
-                BuyEntity buyEntity=(BuyEntity) iterator.next();
-                String itemname=buyEntity.getItemName();
-                GoodsEntity goodsEntity=(GoodsEntity) session.createQuery("from GoodsEntity where itemName=?").setParameter(0,itemname);
+
+
+            //System.out.print(session.createQuery("from BuyEntity where username = ?").setParameter(0,name).list());
+            List<BuyEntity> BuyEntityList = (List<BuyEntity>) session.createQuery("from BuyEntity where username = ?").setParameter(0, name).list();// 操作
+            Iterator iterator = BuyEntityList.iterator();
+            ArrayList<GoodsEntity> goodsEntityList = new ArrayList<GoodsEntity>();
+            while (iterator.hasNext()) {
+                BuyEntity buyEntity = (BuyEntity) iterator.next();
+                String itemname = buyEntity.getItemname();
+                GoodsEntity goodsEntity = (GoodsEntity) session.createQuery("from GoodsEntity where itemname=?").setParameter(0, itemname).uniqueResult();
                 goodsEntityList.add(goodsEntity);
             }
             tx.commit();
@@ -49,8 +50,7 @@ public class GoodsDao {
         } catch (RuntimeException e) {
             tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 }
+

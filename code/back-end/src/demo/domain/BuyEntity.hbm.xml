@@ -9,7 +9,7 @@
             <key-property name="username">
                 <column name="username" sql-type="varchar(255)"/>
             </key-property>
-            <key-property name="itemName">
+            <key-property name="itemname">
                 <column name="itemname" sql-type="varchar(255)"/>
             </key-property>
         </composite-id>

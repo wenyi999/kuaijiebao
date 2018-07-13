@@ -5,7 +5,7 @@
 <hibernate-mapping>
 
     <class name="demo.domain.UserEntity" table="user" schema="kjb">
-        <id name="uId">
+        <id name="uid">
             <column name="uid" sql-type="int(11)"/>
             <generator class="increment"/>
         </id>
@@ -27,7 +27,7 @@
         <property name="credit">
             <column name="credit" sql-type="int(11)"/>
         </property>
-        <property name="lineOfCredit">
+        <property name="line">
             <column name="line" sql-type="int(11)"/>
         </property>
     </class>

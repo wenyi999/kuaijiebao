@@ -3,23 +3,23 @@ package demo.domain;
 import javax.persistence.*;
 
 /**
- * Created by Boyi on 2018/7/9.
+ * Created by Boyi on 2018/7/13.
  */
 @Entity
-@Table(name = "goods", schema = "kjb")
+@Table(name = "goods", schema = "kjb", catalog = "")
 public class GoodsEntity {
-    private String itemName;
+    private String itemname;
     private double price;
-    private double itemRate;
+    private double itemrate;
 
     @Id
     @Column(name = "itemname", nullable = false, length = 255)
-    public String getItemName() {
-        return itemName;
+    public String getItemname() {
+        return itemname;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setItemname(String itemname) {
+        this.itemname = itemname;
     }
 
     @Basic
@@ -34,12 +34,12 @@ public class GoodsEntity {
 
     @Basic
     @Column(name = "itemrate", nullable = false, precision = 0)
-    public double getItemRate() {
-        return itemRate;
+    public double getItemrate() {
+        return itemrate;
     }
 
-    public void setItemRate(double itemRate) {
-        this.itemRate = itemRate;
+    public void setItemrate(double itemrate) {
+        this.itemrate = itemrate;
     }
 
     @Override
@@ -50,8 +50,8 @@ public class GoodsEntity {
         GoodsEntity that = (GoodsEntity) o;
 
         if (Double.compare(that.price, price) != 0) return false;
-        if (Double.compare(that.itemRate, itemRate) != 0) return false;
-        if (itemName != null ? !itemName.equals(that.itemName) : that.itemName != null) return false;
+        if (Double.compare(that.itemrate, itemrate) != 0) return false;
+        if (itemname != null ? !itemname.equals(that.itemname) : that.itemname != null) return false;
 
         return true;
     }
@@ -60,10 +60,10 @@ public class GoodsEntity {
     public int hashCode() {
         int result;
         long temp;
-        result = itemName != null ? itemName.hashCode() : 0;
+        result = itemname != null ? itemname.hashCode() : 0;
         temp = Double.doubleToLongBits(price);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(itemRate);
+        temp = Double.doubleToLongBits(itemrate);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }

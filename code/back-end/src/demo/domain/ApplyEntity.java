@@ -3,27 +3,27 @@ package demo.domain;
 import javax.persistence.*;
 
 /**
- * Created by Boyi on 2018/7/9.
+ * Created by Boyi on 2018/7/13.
  */
 @Entity
-@Table(name = "apply", schema = "kjb")
+@Table(name = "apply", schema = "kjb", catalog = "")
 public class ApplyEntity {
-    private int aId;
+    private int aid;
     private String username;
     private double amount;
     private double rate;
     private int repaytime;
-    private String creditorName;
+    private String creditorname;
     private int status;
 
     @Id
     @Column(name = "aid", nullable = false)
-    public int getaId() {
-        return aId;
+    public int getAid() {
+        return aid;
     }
 
-    public void setaId(int aId) {
-        this.aId = aId;
+    public void setAid(int aid) {
+        this.aid = aid;
     }
 
     @Basic
@@ -37,7 +37,7 @@ public class ApplyEntity {
     }
 
     @Basic
-    @Column(name = "amount", nullable = false, precision = 0)
+    @Column(name = "amount", nullable = false, precision = 2)
     public double getAmount() {
         return amount;
     }
@@ -47,7 +47,7 @@ public class ApplyEntity {
     }
 
     @Basic
-    @Column(name = "rate", nullable = false, precision = 0)
+    @Column(name = "rate", nullable = false, precision = 2)
     public double getRate() {
         return rate;
     }
@@ -67,13 +67,13 @@ public class ApplyEntity {
     }
 
     @Basic
-    @Column(name = "creditorname", nullable = false, length = 255)
-    public String getCreditorName() {
-        return creditorName;
+    @Column(name = "creditorname", nullable = true, length = 255)
+    public String getCreditorname() {
+        return creditorname;
     }
 
-    public void setCreditorName(String creditorName) {
-        this.creditorName = creditorName;
+    public void setCreditorname(String creditorname) {
+        this.creditorname = creditorname;
     }
 
     @Basic
@@ -93,13 +93,13 @@ public class ApplyEntity {
 
         ApplyEntity that = (ApplyEntity) o;
 
-        if (aId != that.aId) return false;
+        if (aid != that.aid) return false;
         if (Double.compare(that.amount, amount) != 0) return false;
         if (Double.compare(that.rate, rate) != 0) return false;
         if (repaytime != that.repaytime) return false;
         if (status != that.status) return false;
         if (username != null ? !username.equals(that.username) : that.username != null) return false;
-        if (creditorName != null ? !creditorName.equals(that.creditorName) : that.creditorName != null) return false;
+        if (creditorname != null ? !creditorname.equals(that.creditorname) : that.creditorname != null) return false;
 
         return true;
     }
@@ -108,14 +108,14 @@ public class ApplyEntity {
     public int hashCode() {
         int result;
         long temp;
-        result = aId;
+        result = aid;
         result = 31 * result + (username != null ? username.hashCode() : 0);
         temp = Double.doubleToLongBits(amount);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(rate);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + repaytime;
-        result = 31 * result + (creditorName != null ? creditorName.hashCode() : 0);
+        result = 31 * result + (creditorname != null ? creditorname.hashCode() : 0);
         result = 31 * result + status;
         return result;
     }

@@ -8,9 +8,7 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 
-/**
- * Created by Boyi on 2018/7/8.
- */
+
 public class UserDao {
     public UserDao(){}
 
@@ -27,8 +25,6 @@ public class UserDao {
         } catch (RuntimeException e) {
             session.getTransaction().rollback(); // 回滚事务
             throw e;
-        } finally {
-            session.close(); // 关闭session
         }
     }
 
@@ -37,9 +33,9 @@ public class UserDao {
      */
     public void update(UserEntity user) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tx = null;
+        Transaction tx = null;tx = session.beginTransaction();
         try {
-            tx = session.beginTransaction();
+
 
             session.update(user);// 操作
 
@@ -47,8 +43,6 @@ public class UserDao {
         } catch (RuntimeException e) {
             tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
@@ -58,8 +52,9 @@ public class UserDao {
     public void delete(String name) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tx = null;
+        tx = session.beginTransaction();
         try {
-            tx = session.beginTransaction();
+
 
             Object user = (UserEntity) session.createQuery("from UserEntity where username = ? ")
                     .setParameter(0,name).uniqueResult(); // 要先获取到这个对象
@@ -69,8 +64,6 @@ public class UserDao {
         } catch (RuntimeException e) {
             tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
@@ -79,19 +72,23 @@ public class UserDao {
      * 根据userName查询一个User数据
      */
     public UserEntity getByUsername(String name) {
+        System.out.print("in");
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tx = null;
+        System.out.print("getsesson");
+        Transaction tx = session.beginTransaction();
+        System.out.print("begintransaction");
         try {
-            tx = session.beginTransaction();
-            UserEntity user = (UserEntity) session.createQuery("from UserEntity where username = ?")
+            System.out.print("try");
+            UserEntity user = (UserEntity) session.createQuery("from UserEntity where username = ? ")
                     .setParameter(0,name).uniqueResult();// 操作
+            System.out.print("user");
             tx.commit();
+            System.out.print("cm");
             return user;
         } catch (RuntimeException e) {
             tx.rollback();
+            System.out.print("exception");
             throw e;
-        } finally {
-            session.close();
         }
     }
 
@@ -101,9 +98,8 @@ public class UserDao {
     public List<UserEntity> getAll() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tx = null;
+        tx = session.beginTransaction();
         try {
-            tx = session.beginTransaction();
-
             // 方式一：使用HQL语句
             @SuppressWarnings("unchecked")
             List<UserEntity> list = session.createQuery("FROM UserEntity ").list(); // 使用HQL查询

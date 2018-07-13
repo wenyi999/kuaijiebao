@@ -21,95 +21,86 @@ public class ApplyDao {
         } catch (RuntimeException e) {
             session.getTransaction().rollback(); // 回滚事务
             throw e;
-        } finally {
-            session.close(); // 关闭session
         }
     }
 
     public List<ApplyEntity> getAll(){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tx = null;
+        Transaction tx = null;tx = session.beginTransaction();
         try {
-            tx = session.beginTransaction();
+
 
             // 方式一：使用HQL语句
             @SuppressWarnings("unchecked")
-            List<ApplyEntity> list = session.createQuery("FROM ApplyEntity ").list(); // 使用HQL查询
+            List<ApplyEntity> list = session.createQuery("FROM ApplyEntity where status=?").setParameter(0,0).list(); // 使用HQL查询
 
             tx.commit();
             return list;
         } catch (RuntimeException e) {
             tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
     public List<ApplyEntity> getByUsername(String name) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tx = null;
+        Transaction tx = session.beginTransaction();
         try {
-            tx = session.beginTransaction();
+
             List<ApplyEntity> applyEntityList = (List<ApplyEntity>) session.createQuery("from ApplyEntity where username = ?").setParameter(0,name).list();// 操作
             tx.commit();
             return applyEntityList;
         } catch (RuntimeException e) {
             tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
     public List<ApplyEntity> getByCreditorName(String name){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tx = null;
+        Transaction tx =  session.beginTransaction();
         try {
-            tx = session.beginTransaction();
-            List<ApplyEntity> applyEntityList = (List<ApplyEntity>) session.createQuery("from ApplyEntity where creditorName = ?").setParameter(0,name).list();// 操作
+            System.out.print("getByCreditorName\n");
+            List<ApplyEntity> applyEntityList = (List<ApplyEntity>) session.createQuery("from ApplyEntity where creditorname = ?").setParameter(0,name).list();// 操作
+            System.out.print("getapplyEntityList");
             tx.commit();
             return applyEntityList;
         } catch (RuntimeException e) {
             tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
     public void PayBack(int a_id){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tx = null;
+        Transaction tx = session.beginTransaction();
         try {
-            tx = session.beginTransaction();
-            ApplyEntity applyEntity = (ApplyEntity) session.createQuery("from ApplyEntity where aId = ?").setParameter(0,a_id);// 操作
+
+            ApplyEntity applyEntity = (ApplyEntity) session.createQuery("from ApplyEntity where aid = ?").setParameter(0,a_id).uniqueResult();// 操作
             applyEntity.setStatus(2);
+            session.update(applyEntity);
             tx.commit();
-            return;
+            //return;
         } catch (RuntimeException e) {
             tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 
     public void lend(int a_id,String username){
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tx = null;
+        Transaction tx = session.beginTransaction();
         try {
-            tx = session.beginTransaction();
-            ApplyEntity applyEntity = (ApplyEntity) session.createQuery("from ApplyEntity where aId = ?").setParameter(0,a_id);// 操作
+
+            ApplyEntity applyEntity = (ApplyEntity) session.createQuery("from ApplyEntity where aid = ?").setParameter(0,a_id).uniqueResult();// 操作
             applyEntity.setStatus(1);
-            applyEntity.setCreditorName(username);
+            applyEntity.setCreditorname(username);
+            session.update(applyEntity);
             tx.commit();
-            return;
+            //return;
         } catch (RuntimeException e) {
             tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 }

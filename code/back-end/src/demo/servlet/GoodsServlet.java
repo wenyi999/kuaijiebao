@@ -39,12 +39,12 @@ public class GoodsServlet  extends HttpServlet {
                 ArrayList<JSONObject> applyJson = new ArrayList<JSONObject>();
                 while (it.hasNext()) {
                     GoodsEntity goodsEntity = it.next();
-                    ArrayList<String> obj = new ArrayList<String>();
-                    obj.add("item_name:" + goodsEntity.getItemName());
-                    obj.add("price:" + goodsEntity.getPrice()+"");
-                    obj.add("item_rate:" + goodsEntity.getItemRate()+"");
+                    JSONObject obj = new JSONObject();
+                    obj.put("item_name" , goodsEntity.getItemname());
+                    obj.put("price" , goodsEntity.getPrice()+"");
+                    obj.put("item_rate" , goodsEntity.getItemrate()+"");
                     System.out.println(obj.toString());
-                    applyJson.add(JSONObject.fromString(obj.toString()));
+                    applyJson.add(obj);
                 }
                 System.out.println(applyJson);
                 out.println(applyJson);

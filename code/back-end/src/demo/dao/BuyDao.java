@@ -21,24 +21,20 @@ public class BuyDao {
         } catch (RuntimeException e) {
             session.getTransaction().rollback(); // 回滚事务
             throw e;
-        } finally {
-            session.close(); // 关闭session
         }
     }
 
     public List<BuyEntity> getByUsername(String name) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tx = null;
+        Transaction tx = session.beginTransaction();
         try {
-            tx = session.beginTransaction();
-            List<BuyEntity> buyEntityList = (List<BuyEntity>) session.createQuery("from BuyEntity where username = ?").setParameter(0,name).list();// 操作
+
+            List<BuyEntity> buyEntityList =  (List<BuyEntity>) session.createQuery("from BuyEntity where username = ?").setParameter(0,name).list();// 操作
             tx.commit();
-            return buyEntityList;
+            return  buyEntityList;
         } catch (RuntimeException e) {
             tx.rollback();
             throw e;
-        } finally {
-            session.close();
         }
     }
 }

@@ -3,14 +3,14 @@ package demo.domain;
 import javax.persistence.*;
 
 /**
- * Created by Boyi on 2018/7/9.
+ * Created by Boyi on 2018/7/13.
  */
 @Entity
-@Table(name = "buy", schema = "kjb")
+@Table(name = "buy", schema = "kjb", catalog = "")
 @IdClass(BuyEntityPK.class)
 public class BuyEntity {
     private String username;
-    private String itemName;
+    private String itemname;
     private int amount;
 
     @Id
@@ -25,12 +25,12 @@ public class BuyEntity {
 
     @Id
     @Column(name = "itemname", nullable = false, length = 255)
-    public String getItemName() {
-        return itemName;
+    public String getItemname() {
+        return itemname;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setItemname(String itemname) {
+        this.itemname = itemname;
     }
 
     @Basic
@@ -52,7 +52,7 @@ public class BuyEntity {
 
         if (amount != buyEntity.amount) return false;
         if (username != null ? !username.equals(buyEntity.username) : buyEntity.username != null) return false;
-        if (itemName != null ? !itemName.equals(buyEntity.itemName) : buyEntity.itemName != null) return false;
+        if (itemname != null ? !itemname.equals(buyEntity.itemname) : buyEntity.itemname != null) return false;
 
         return true;
     }
@@ -60,7 +60,7 @@ public class BuyEntity {
     @Override
     public int hashCode() {
         int result = username != null ? username.hashCode() : 0;
-        result = 31 * result + (itemName != null ? itemName.hashCode() : 0);
+        result = 31 * result + (itemname != null ? itemname.hashCode() : 0);
         result = 31 * result + amount;
         return result;
     }

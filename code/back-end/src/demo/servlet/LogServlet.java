@@ -3,8 +3,6 @@ package demo.servlet;
 
 import demo.dao.UserDao;
 import demo.domain.UserEntity;
-import demo.util.HibernateUtil;
-import org.hibernate.Session;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -34,7 +32,7 @@ public class LogServlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            //Session session = HibernateUtil.getSessionFactory().getCurrentSession();
             PrintWriter out = response.getWriter();
             response.setContentType("text/html;charset=utf-8");
             
@@ -78,13 +76,13 @@ public class LogServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            //Session session = HibernateUtil.getSessionFactory().getCurrentSession();
             PrintWriter out = response.getWriter();
             response.setContentType("text/html;charset=utf-8");
-            String username = (String) request.getParameter("username");
+            String username =  request.getParameter("username");
             System.out.print(username+"\n");
-            String password = (String) request.getParameter("password");
-            String name = (String) request.getParameter("name");
+            String password =  request.getParameter("password");
+            String name =  request.getParameter("name");
             System.out.print(name+"\n");
             String phone = request.getParameter("phone");
             System.out.print(phone+"\n");
@@ -110,7 +108,7 @@ public class LogServlet extends HttpServlet {
                 newuser.setName(name);
                 newuser.setPhone(phone);
                 newuser.setCredit(credit);
-                newuser.setLineOfCredit(line);
+                newuser.setLine(line);
                 System.out.print("usersettled");
                 dao.add(newuser);
                 System.out.print("ADDUSER");

@@ -4,10 +4,12 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-
+/**
+ * Created by Boyi on 2018/7/13.
+ */
 public class BuyEntityPK implements Serializable {
     private String username;
-    private String itemName;
+    private String itemname;
 
     @Column(name = "username", nullable = false, length = 255)
     @Id
@@ -21,12 +23,12 @@ public class BuyEntityPK implements Serializable {
 
     @Column(name = "itemname", nullable = false, length = 255)
     @Id
-    public String getItemName() {
-        return itemName;
+    public String getItemname() {
+        return itemname;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setItemname(String itemname) {
+        this.itemname = itemname;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class BuyEntityPK implements Serializable {
         BuyEntityPK that = (BuyEntityPK) o;
 
         if (username != null ? !username.equals(that.username) : that.username != null) return false;
-        if (itemName != null ? !itemName.equals(that.itemName) : that.itemName != null) return false;
+        if (itemname != null ? !itemname.equals(that.itemname) : that.itemname != null) return false;
 
         return true;
     }
@@ -45,7 +47,7 @@ public class BuyEntityPK implements Serializable {
     @Override
     public int hashCode() {
         int result = username != null ? username.hashCode() : 0;
-        result = 31 * result + (itemName != null ? itemName.hashCode() : 0);
+        result = 31 * result + (itemname != null ? itemname.hashCode() : 0);
         return result;
     }
 }

@@ -5,7 +5,7 @@
 <hibernate-mapping>
 
     <class name="demo.domain.CardEntity" table="card" schema="kjb">
-        <id name="credictNumber">
+        <id name="credictnumber">
             <column name="credictnumber" sql-type="varchar(255)"/>
         </id>
         <property name="username">

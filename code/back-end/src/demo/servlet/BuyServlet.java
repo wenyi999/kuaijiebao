@@ -39,29 +39,29 @@ public class BuyServlet extends HttpServlet {
             BuyDao dao2 = new BuyDao();
             List<GoodsEntity> result1;
             List<BuyEntity>result2;
-                String username=request.getParameter("username");
-                result1 = dao1.getByUsername(username);
-                result2=dao2.getByUsername(username);
-                Iterator<GoodsEntity> it1 = result1.iterator();
-                Iterator<BuyEntity> it2=result2.iterator();
-                ArrayList<JSONObject> goodsJson = new ArrayList<JSONObject>();
-                while (it2.hasNext()) {
-                    GoodsEntity goods = (GoodsEntity) it1.next();
-                    BuyEntity buyEntity=(BuyEntity) it2.next();
-                    ArrayList<String> obj = new ArrayList<String>();
-                    obj.add("item_name:" + goods.getItemName() + "");
-                    obj.add("username:" + username);
-                    obj.add("price:" + goods.getPrice());
-                    obj.add("amount:" + buyEntity.getAmount() + "");
-                    obj.add("item_rate:" + goods.getItemRate() + "");
-                    System.out.println(obj.toString());
-                    goodsJson.add(JSONObject.fromString(obj.toString()));
-                }
-                System.out.println(goodsJson);
-                out.println(goodsJson);
-                out.flush();
-                out.close();
-
+            String username=request.getParameter("username");
+            result2 = dao2.getByUsername(username);
+            System.out.print("BuyDaoSuccess\n");
+            result1 = dao1.getByUsername(username);
+            Iterator<GoodsEntity> it1 = result1.iterator();
+            Iterator<BuyEntity> it2=result2.iterator();
+            ArrayList<JSONObject> goodsJson = new ArrayList<JSONObject>();
+            while (it2.hasNext()) {
+                GoodsEntity goods = (GoodsEntity) it1.next();
+                BuyEntity buyEntity=(BuyEntity) it2.next();
+                JSONObject obj = new JSONObject();
+                obj.put("item_name", goods.getItemname() + "");
+                obj.put("username", username);
+                obj.put("price" , goods.getPrice());
+                obj.put("amount" , buyEntity.getAmount() + "");
+                obj.put("item_rate" , goods.getItemrate() + "");
+                System.out.println(obj.toString());
+                goodsJson.add(obj);
+            }
+            System.out.println(goodsJson);
+            out.println(goodsJson);
+            out.flush();
+            out.close();
         }
         catch (Exception ex) {
             if ( ServletException.class.isInstance( ex ) ) {
@@ -84,13 +84,13 @@ public class BuyServlet extends HttpServlet {
             String item_name=request.getParameter("item_name");
             String amount=request.getParameter("amount");
             String username=request.getParameter("username");
-            BuyEntity buyEntity = null;
+            BuyEntity buyEntity = new BuyEntity();
             int amountInt=Integer.parseInt(amount);
             buyEntity.setAmount(amountInt);
-            buyEntity.setItemName(item_name);
+            buyEntity.setItemname(item_name);
             buyEntity.setUsername(username);
             dao.add(buyEntity);
-            out.println("购买成功");
+            out.println("buySuccess");
             out.flush();
             out.close();
         } catch (Exception ex) {
