@@ -4,11 +4,14 @@
   "private": true,
   "dependencies": {
     "antd": "^3.6.5",
+    "axios": "^0.18.0",
+    "jquery": "^3.3.1",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-keeper": "^2.1.8",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "whatwg-fetch": "^2.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -18,5 +21,6 @@
   },
   "devDependencies": {
     "react-router": "^4.3.1"
-  }
+  },
+  "homepage": "."
 }

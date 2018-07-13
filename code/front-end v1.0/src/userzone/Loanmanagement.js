@@ -2,67 +2,100 @@ import React, { Component } from 'react';
 
 import './App.css';
 
-import { Table, Popconfirm } from 'antd';
+import $ from 'jquery'
 
-const debts_list = []
-for (let i = 0; i <25; i++) {
-    debts_list.push({
-        key : i+1,
-        creditor_name: 'sam',
-        debts:45+i,
-        date:"2018-09-09",
-        state:false,
-        state_message:'未还款'
-    })
-}
+import { Table, Popconfirm } from 'antd';
+import {message} from "antd/lib/index";
+
+
 
 class Loanmanagement extends Component {
     constructor(props) {
         super(props);
         this.columns = [{
-            title: '序号',
-            dataIndex: 'key',
+            title: '借款单号',
+            dataIndex: 'a_id',
         }, {
             title: '债权人姓名',
             dataIndex: 'creditor_name',
         },{
             title: '借款金额',
-            dataIndex: 'debts',
+            dataIndex: 'amount',
         },{
-            title: '期限',
-            dataIndex: 'date',
+            title: '利率',
+            dataIndex: 'rate',
+        },{
+            title: '还款时间(月）',
+            dataIndex: 'repaytime',
         },{
             title: '状态',
-            dataIndex: 'state_message',
+            dataIndex: 'status',
         },{
             title: '方式',
             dataIndex: 'operation',
             render: (text, record) => {
-                return (
-                    this.state.dataSource.length > 1
-                        ? (
-                            <Popconfirm title="确认还款吗?" onConfirm={() => this.onRepay(record.key)}>
-                                <a href="javascript:;">还款</a>
-                            </Popconfirm>
-                        ) : null
+                return (record.status==='Lent'
+                        ?(
+                        <Popconfirm title="确认还款吗?" onConfirm={() => this.onRepay(record.a_id)}>
+                        <a href="javascript:;">还款</a>
+                    </Popconfirm>) : null
                 );
             },
         }];
 
         this.state = {
-            dataSource: debts_list
+            username:"",
+            dataSource: []
         };
+        this.loadlist = this.loadlist.bind(this);
+    }
+    loadlist(){
+        //const dataSource = [...this.state.dataSource];
+        $.ajax({
+            type:'GET',
+            url:'/apply',
+            data:{
+                username:'admin',
+                applyStatus: 1
+            },
+            success:function(data){
+                message.info("success");
+                this.setState({
+                    dataSource:JSON.parse(data)
+                });
+            }.bind(this),
+            error:function(data){
+                console.log(data)
+            }
+        })
+    }
+    onRepay = (a_id) => {
+        //const dataSource = [...this.state.dataSource];
+        $.ajax({
+            type:'POST',
+            url:'/apply',
+            data:{
+                username:'admin',
+                a_id: a_id,
+                applyStatus: 3
+            },
+            success:function(data){
+                message.info("success");
+                this.setState({
+                    dataSource:JSON.parse(data)
+                });
+            }.bind(this),
+            error:function(data){
+                console.log(data)
+            }
+        })
     }
 
-    onRepay = (key) => {
-        const dataSource = [...this.state.dataSource];
-        const target = dataSource.find(item => item.key === key);
-        if (target.state === false) {
-            target.state = true;
-            target.state_message = "已还款"
-            this.setState({ dataSource });
-        }
+   componentWillMount(){
+
+      this.loadlist();
     }
+
     render() {
         const { dataSource } = this.state;
         const columns = this.columns;

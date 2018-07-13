@@ -1,43 +1,26 @@
 import React, { Component } from 'react';
-
 import './App.css';
-
+import $ from 'jquery';
+import {message} from 'antd/lib/index'
 import { Table, Popconfirm } from 'antd';
 
-const item_list = []
-for (let i = 0; i <25; i++) {
-    item_list.push({
-        key : i+1,
-        product_name: '债券No.'+ (i+1),
-        money:45+i,
-        rate: "1%",
-        amount: 1,
-        date:"2018-07-09 ~ 2018-09-09"
-    })
-}
 
 class Itemmanagement extends Component {
     constructor(props) {
         super(props);
         this.columns = [{
-            title: '购买单号',
-            dataIndex: 'key',
-        }, {
             title: '产品名称',
-            dataIndex: 'product_name',
+            dataIndex: 'item_name',
         },{
-            title: '投资金额',
-            dataIndex: 'money',
+            title: '单价',
+            dataIndex: 'price',
         },{
             title: '利率',
-            dataIndex: 'rate',
-        },{
-            title: '期限',
-            dataIndex: 'date',
+            dataIndex: 'item_rate',
         },{
             title: '数量',
             dataIndex: 'amount',
-        },{
+        },/*{
             title: '方式',
             dataIndex: 'operation',
             render: (text, record) => {
@@ -50,13 +33,38 @@ class Itemmanagement extends Component {
                         ) : null
                 );
             },
-        }];
+        }*/];
 
         this.state = {
-            dataSource: item_list
+            username:"",
+            dataSource: []
         };
+        this.loadlist = this.loadlist.bind(this);
     }
 
+    loadlist(){
+        const dataSource = [...this.state.dataSource];
+        $.ajax({
+            type:'GET',
+            url:'/buy',
+            data:{
+                username:'admin',
+            },
+            success:function(data){
+                message.info("success");
+                this.setState({
+                    dataSource:JSON.parse(data)
+                });
+            }.bind(this),
+            error:function(data){
+                console.log(data)
+            }
+        })
+    }
+
+    componentWillMount(){
+        this.loadlist();
+    }
     onRepay = (key) => {
         const dataSource = [...this.state.dataSource];
         this.setState({ dataSource: dataSource.filter(item => item.key !== key) });

@@ -11,7 +11,7 @@ import { Card,Radio,Input,Button } from 'antd';
 const RadioGroup = Radio.Group;
 
 const user = {
-    username:'SJTU GROUP22 member1',
+    username:'admin',
     id: 123456789123456789,
     phone: 11111111111,
     credit_level: '100',
@@ -39,18 +39,9 @@ class Userinformation extends Component {
                     style={{ width: '50%' }}
                     title="用户名"
                 >
-                    <Input defaultValue = {user.username} />
+                    <Input value={user.username} />
                 </Card>
-                <br /> <br />
-                <Card
-                    style={{ width: '50%' }}
-                    title="性别"
-                >
-                    <RadioGroup onChange={this.onChange} value={this.state.value}>
-                        <Radio value={1}>男</Radio>
-                        <Radio value={2}>女</Radio>
-                    </RadioGroup>
-                </Card>
+
                 <br /><br />
                 <Card
                     style={{ width: '50%' }}

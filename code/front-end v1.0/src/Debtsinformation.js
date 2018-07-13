@@ -4,67 +4,98 @@ import './App.css';
 
 import { Table, Popconfirm } from 'antd';
 
-const debts_list = []
-for (let i = 0; i <25; i++) {
-    debts_list.push({
-        key : i+1,
-        debtor_name: 'sam',
-        debts:45+i,
-        date:2,
-        interest:1,
-        reason:"买房",
-        state:false,
-        state_message:'未还款'
-    })
-}
+
+import $ from 'jquery'
+import {message} from "antd/lib/index";
+
 
 class Debtsinformation extends Component {
     constructor(props) {
         super(props);
         this.columns = [{
-            title: '序号',
-            dataIndex: 'key',
+            title: '借款单号',
+            dataIndex: 'a_id',
         }, {
             title: '债务人姓名',
-            dataIndex: 'debtor_name',
+            dataIndex: 'username',
         },{
             title: '借款金额',
-            dataIndex: 'debts',
+            dataIndex: 'amount',
         },{
             title: '借款期限(月）',
-            dataIndex: 'date',
+            dataIndex: 'repaytime',
         },{
             title: '月利率（%）',
-            dataIndex: 'interest',
-        },{
-            title: '借款目的',
-            dataIndex: 'reason',
+            dataIndex: 'rate',
         },{
             title: '方式',
             dataIndex: 'operation',
             render: (text, record) => {
-                return (
-                    this.state.dataSource.length > 1
-                        ? (
-                            <Popconfirm title="确认出借吗?" onConfirm={() => this.onRepay(record.key)}>
+                return (record.username  !=='admin'
+                    ?(
+
+
+                            <Popconfirm title="确认出借吗?" onConfirm={() => this.onLend(record.a_id)}>
                                 <a href="javascript:;">出借</a>
                             </Popconfirm>
-                        ) : null
+                        ): null
                 );
             },}
 
         ];
 
         this.state = {
-            dataSource: debts_list
+            username:"",
+            dataSource: []
         };
+        this.loadlist = this.loadlist.bind(this);
     }
-    onRepay = (key) => {
-        const dataSource = [...this.state.dataSource];
-        this.setState({ dataSource: dataSource.filter(item => item.key !== key) });
+    loadlist(){
+        //const dataSource = [...this.state.dataSource];
+        $.ajax({
+            type:'GET',
+            url:'/apply',
+            data:{
+                username:'admin',
+                applyStatus: 0
+            },
+            success:function(data){
+                message.info("success");
+                this.setState({
+                    dataSource:JSON.parse(data)
+                });
+            }.bind(this),
+            error:function(data){
+                console.log(data)
+            }
+        })
+    }
+    onLend = (a_id) => {
+        //const dataSource = [...this.state.dataSource];
+        $.ajax({
+            type:'POST',
+            url:'/apply',
+            data:{
+                username:'admin',
+                a_id: a_id,
+                applyStatus: 4
+            },
+            success:function(data){
+                message.info("success");
+                this.setState({
+                    dataSource:JSON.parse(data)
+                });
+            }.bind(this),
+            error:function(data){
+                console.log(data)
+            }
+        })
     }
 
+    componentWillMount(){
 
+        this.loadlist();
+    }
     render() {
         const { dataSource } = this.state;
         const columns = this.columns;

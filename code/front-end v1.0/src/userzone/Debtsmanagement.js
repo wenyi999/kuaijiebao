@@ -1,46 +1,64 @@
 import React, { Component } from 'react';
-
 import './App.css';
-
-import { Table, Popconfirm } from 'antd';
-
-const debts_list = []
-for (let i = 0; i <25; i++) {
-    debts_list.push({
-        key : i+1,
-        debtor_name: 'sam',
-        debts:45+i,
-        date:"2018-09-09",
-        state:false,
-        state_message:'未还款'
-    })
-}
+import {message} from "antd/lib/index";
+import $ from 'jquery'
+import { Table } from 'antd';
 
 class debtsmanagement extends Component {
     constructor(props) {
         super(props);
         this.columns = [{
-            title: '序号',
-            dataIndex: 'key',
+            title: '借款单号',
+            dataIndex: 'a_id',
         }, {
             title: '债务人姓名',
-            dataIndex: 'debtor_name',
+            dataIndex: 'username',
         },{
             title: '借款金额',
-            dataIndex: 'debts',
+            dataIndex: 'amount',
         },{
-            title: '期限',
-            dataIndex: 'date',
+            title: '月利率',
+            dataIndex: 'rate',
+        },{
+            title: '还款时间(月）',
+            dataIndex: 'repaytime',
         },{
             title: '状态',
-            dataIndex: 'state_message',
-        }];
+            dataIndex: 'status'
+        }
+    ];
 
         this.state = {
-            dataSource: debts_list
+            username:"",
+            dataSource: []
         };
+        this.loadlist = this.loadlist.bind(this);
     }
 
+    loadlist(){
+        const dataSource = [...this.state.dataSource];
+        $.ajax({
+            type:'GET',
+            url:'/apply',
+            data:{
+                creditor_name:'admin',
+                applyStatus:2
+            },
+            success:function(data){
+                message.info("success");
+                this.setState({
+                    dataSource:JSON.parse(data)
+                });
+            }.bind(this),
+            error:function(data){
+                console.log(data)
+            }
+        })
+    }
+
+    componentWillMount(){
+        this.loadlist();
+    }
 
     render() {
         const { dataSource } = this.state;
