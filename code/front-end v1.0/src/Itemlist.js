@@ -1,24 +1,164 @@
 import React, { Component } from 'react';
-import { List, Card,Button,InputNumber} from 'antd';
+import {List, Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button,Popconfirm,Table} from 'antd';
+import {message} from "antd/lib/index";
 import $ from 'jquery'
 import './App.css';
-import {message} from "antd/lib/index";
+import {Control} from "react-keeper";
+
+const FormItem = Form.Item;
+
+const EditableContext = React.createContext();
 
 function onChange(value) {
     console.log('changed', value);
 }
 
+const EditableRow = ({ form, index, ...props }) => (
+    <EditableContext.Provider value={form}>
+        <tr {...props} />
+    </EditableContext.Provider>
+);
+
+const EditableFormRow = Form.create()(EditableRow);
+
+class EditableCell extends React.Component {
+    state = {
+        editing: false,
+    }
+
+    componentDidMount() {
+        if (this.props.editable) {
+            document.addEventListener('click', this.handleClickOutside, true);
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.props.editable) {
+            document.removeEventListener('click', this.handleClickOutside, true);
+        }
+    }
+
+    toggleEdit = () => {
+        const editing = !this.state.editing;
+        this.setState({ editing }, () => {
+            if (editing) {
+                this.input.focus();
+            }
+        });
+    }
+
+    handleClickOutside = (e) => {
+        const { editing } = this.state;
+        if (editing && this.cell !== e.target && !this.cell.contains(e.target)) {
+            this.save();
+        }
+    }
+
+    save = () => {
+        const { record, handleSave } = this.props;
+        this.form.validateFields((error, values) => {
+            if (error) {
+                return;
+            }
+            this.toggleEdit();
+            handleSave({ ...record, ...values });
+        });
+    }
+
+    checkInput = (rule, value, callback) => {
+        if (value && value < 1000) {
+            callback('You must pay at least 1000');
+        } else {
+            callback();
+        }
+    }
+
+    render() {
+        const { editing } = this.state;
+        const {
+            editable,
+            dataIndex,
+            title,
+            record,
+            index,
+            handleSave,
+            ...restProps
+        } = this.props;
+        return (
+            <td ref={node => (this.cell = node)} {...restProps}>
+                {editable ? (
+                    <EditableContext.Consumer>
+                        {(form) => {
+                            this.form = form;
+                            return (
+                                editing ? (
+                                    <FormItem style={{ margin: 0 }}>
+                                        {form.getFieldDecorator(dataIndex, {
+                                            rules: [{
+                                                required: true,
+                                                message: `money is required.`,
+                                            },{
+                                                validator:this.checkInput
+                                            }
+                                            ],
+                                            initialValue: record[dataIndex],
+                                        })(
+                                            <Input
+                                                ref={node => (this.input = node)}
+                                                onPressEnter={this.save}
+                                            />
+                                        )}
+                                    </FormItem>
+                                ) : (
+                                    <div
+                                        className="editable-cell-value-wrap"
+                                        style={{ paddingRight: 24 }}
+                                        onClick={this.toggleEdit}
+                                    >
+                                        {restProps.children}
+                                    </div>
+                                )
+                            );
+                        }}
+                    </EditableContext.Consumer>
+                ) : restProps.children}
+            </td>
+        );
+    }
+}
+
 class Itemlist extends Component {
     constructor(props) {
         super(props);
+        this.columns = [ {
+            title: '商品名称',
+            dataIndex: 'item_name',
+        },{
+            title: '投资金额（可修改）',
+            dataIndex: 'price',
+            editable: true,
+        },{
+            title: '利率',
+            dataIndex: 'item_rate',
+        },{
+            title: '方式',
+            dataIndex: 'operation',
+            render: (text, record) => {
+                return (
+                    <Popconfirm title="确认以该金额购买吗?" onConfirm={() => this.buy(record.item_name)}>
+                        <a href="javascript:;">购买</a>
+                    </Popconfirm>
+                );
+            },
+        }];
         this.state = {
             username:"",
             dataSource: []
         };
-    this.loadlist = this.loadlist.bind(this);
+        this.loadlist = this.loadlist.bind(this);
     }
     loadlist(){
-        //const dataSource = [...this.state.dataSource];
+        const dataSource = [...this.state.dataSource];
         $.ajax({
             type:'GET',
             url:'/goods',
@@ -33,59 +173,80 @@ class Itemlist extends Component {
             }
         })
     }
-  /*  buy(name,value){
+    buy= (item_name) => {
+        if (this.props.params.id == null){
+            Control.go('/login', {name: 'React-Keeper'});
+            return;
+        }
+        const dataSource = [...this.state.dataSource];
+        const target = dataSource.find(item => item.item_name === item_name);
         $.ajax({
             type:"POST",
             url:'/buy',
             data:{
-                username:'admin',
-                item_name: document.getElementById('card').title,
-                amount:document.getElementById('val').value,
+                username:this.props.params.id,
+                item_name: target.item_name,
+                amount: target.price
             },
             success:function(data){
-                message.info("success");
+                message.info("购买成功");
             }.bind(this),
             error:function(data){
                 console.log(data)
             }
+        });
+    }
 
-        })
-    } */
+    handleSave = (row) => {
+        const newData = [...this.state.dataSource];
+        const index = newData.findIndex(item => row.item_name === item.item_name);
+        const item = newData[index];
+        newData.splice(index, 1, {
+            ...item,
+            ...row,
+        });
+        this.setState({ dataSource: newData });
+    }
     componentWillMount(){
         this.loadlist()
     }
     render(){
-
-        const { dataSource } = this.state;
-        console.log(dataSource)
+        const {dataSource} = this.state;
+        const components = {
+            body: {
+                row: EditableFormRow,
+                cell: EditableCell,
+            },
+        };
+        const columns = this.columns.map((col) => {
+            if (!col.editable) {
+                return col;
+            }
+            return {
+                ...col,
+                onCell: record => ({
+                    record,
+                    editable: col.editable,
+                    dataIndex: col.dataIndex,
+                    title: col.title,
+                    handleSave: this.handleSave,
+                }),
+            };
+        });
         return (
-            <List
-                pagination={{
-                    onChange: (page) => {
-                        console.log(page);
-                    },
-                    pageSize: 6,
-                }}
-                grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 3, xxl: 3 }}
-                dataSource={dataSource}
-
-                renderItem={item => (
-                    <List.Item>
-                        <Card id = 'card' title={item.item_name}>
-                            购买金额: {item.price}<br />
-                            <br />
-                            利率: {item.item_rate}<br />
-                            <br />
-                            购买数量：<InputNumber id = 'val' min={1} max={100} defaultValue={1} onChange={onChange} />
-                            <Button
-                            type = "primary">
-                            购买
-                            </Button>
-                        </Card>
-                    </List.Item>
-                )}
-            />
-        )
+            <div>
+                <Table
+                    components={components}
+                    rowClassName={() => 'editable-row'}
+                    pagination={{
+                        onChange: (page) => {
+                            console.log(page);
+                        },
+                        pageSize: 8,
+                    }}
+                    bordered dataSource={dataSource} columns={columns} />
+            </div>
+        );
     }
 }
 

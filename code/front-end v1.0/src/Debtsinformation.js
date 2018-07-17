@@ -7,6 +7,7 @@ import { Table, Popconfirm } from 'antd';
 
 import $ from 'jquery'
 import {message} from "antd/lib/index";
+import {Control} from "react-keeper";
 
 
 class Debtsinformation extends Component {
@@ -31,7 +32,7 @@ class Debtsinformation extends Component {
             title: '方式',
             dataIndex: 'operation',
             render: (text, record) => {
-                return (record.username  !=='admin'
+                return (record.username  !==this.props.params.id
                     ?(
 
 
@@ -56,7 +57,7 @@ class Debtsinformation extends Component {
             type:'GET',
             url:'/apply',
             data:{
-                username:'admin',
+                username:this.props.params.id,
                 applyStatus: 0
             },
             success:function(data){
@@ -72,11 +73,15 @@ class Debtsinformation extends Component {
     }
     onLend = (a_id) => {
         //const dataSource = [...this.state.dataSource];
+        if (this.props.params.id == null){
+            Control.go('/login', {name: 'React-Keeper'});
+            return;
+        }
         $.ajax({
             type:'POST',
             url:'/apply',
             data:{
-                username:'admin',
+                username:this.props.params.id,
                 a_id: a_id,
                 applyStatus: 4
             },
