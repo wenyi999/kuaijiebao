@@ -113,6 +113,7 @@ public class ApplyServlet extends HttpServlet {
             }
             else if (applyStatus.equals("1")){//自己的借款申请
                 String username=request.getParameter("username");
+                System.out.print(username+"!\n");
                 result = dao.getByUsername(username);
                 Iterator<ApplyEntity> it = result.iterator();
                 ArrayList<JSONObject> applyJson = new ArrayList<JSONObject>();
