@@ -108,9 +108,11 @@ public class CreditServlet extends HttpServlet {
             if(creditStatus.equals("3")){
                 String username =  request.getParameter("username");
                 String line=request.getParameter("line");
+                String credit=request.getParameter("credit");
                 UserDao dao = new UserDao();
                 UserEntity olduser=dao.getByUsername(username);
                 olduser.setLine(Integer.parseInt(line));
+                olduser.setCredit(Integer.parseInt(credit));
                 dao.update(olduser);
                 out.println("creditUpdated");
                 out.flush();
@@ -136,7 +138,7 @@ public class CreditServlet extends HttpServlet {
                     askEntity.setIncome(income);
                     askEntity.setAsk(ask);
                     dao.add(askEntity);
-                    out.println("asking");
+                    out.print("asking");
                     out.flush();
                     out.close();
                 }
@@ -148,9 +150,23 @@ public class CreditServlet extends HttpServlet {
                 AskDao dao1=new AskDao();
                 UserEntity userEntity=dao.getByUsername(username);
                 userEntity.setLine(Integer.parseInt(ask));
+                //userEntity.setCredit(Integer.parseInt(credit));
                 dao.update(userEntity);
                 dao1.delete(username);
-                out.println("askAgreed");
+                List<AskEntity> askEntityList=dao1.getAll();
+                Iterator<AskEntity> it=askEntityList.iterator();
+                ArrayList<JSONObject> infoJson = new ArrayList<JSONObject>();
+                while (it.hasNext()){
+                    JSONObject obj = new JSONObject();
+                    AskEntity user=it.next();
+                    obj.put("username" , user.getUsername());
+                    obj.put("edubg" , user.getEdubg());
+                    obj.put("job" , user.getJob());
+                    obj.put("income" , user.getIncome());
+                    obj.put("ask" , user.getAsk());
+                    infoJson.add(obj);
+                }
+                out.print(infoJson);
                 out.flush();
                 out.close();
             }

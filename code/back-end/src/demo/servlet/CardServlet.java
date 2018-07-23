@@ -37,12 +37,14 @@ public class CardServlet extends HttpServlet {
             result = dao.getByUsername(username);
             Iterator<CardEntity> it = result.iterator();
             ArrayList<JSONObject> goodsJson = new ArrayList<JSONObject>();
+            int i=0;
             while (it.hasNext()) {
                 CardEntity cardEntity = it.next();
                 JSONObject obj = new JSONObject();
-                obj.put("username" , username);
+                obj.put("id" , i);
                 obj.put("credict_number" , cardEntity.getCredictnumber()+"");
                 goodsJson.add(obj);
+                i++;
             }
             System.out.println(goodsJson);
             out.println(goodsJson);
@@ -78,23 +80,47 @@ public class CardServlet extends HttpServlet {
                 CardEntity cardEntity2=dao.getByCredictNumber(CredictNumber);
                 if (cardEntity2==null){
                     dao.add(cardEntity);
-                    out.println("cardAdded");
+                    //out.println("cardAdded");
                 }
-                else out.print("duplicatedCard");
-
+                else {
+                    out.print("duplicatedCard");
+                    out.flush();
+                    out.close();
+                    return;
+                }
             }
             else if (cardStatus.equals("1")){
                 dao.delete(CredictNumber);
-                out.print("cardDeleted");
+                //out.print("cardDeleted");
             }
             else {
                 CardEntity cardEntity2=dao.getByCredictNumber(CredictNumber);
                 if (cardEntity2==null){
                     dao.update(cardEntity);
-                    out.println("cardUpdated");
+                    //out.println("cardUpdated");
                 }
-                else out.print("duplicatedCard");
+                else {
+                    out.print("duplicatedCard");
+                    out.flush();
+                    out.close();
+                    return;
+                }
             }
+            List<CardEntity> result;
+            result = dao.getByUsername(username);
+            Iterator<CardEntity> it = result.iterator();
+            ArrayList<JSONObject> goodsJson = new ArrayList<JSONObject>();
+            int i=0;
+            while (it.hasNext()) {
+                cardEntity = it.next();
+                JSONObject obj = new JSONObject();
+                obj.put("id" , i);
+                obj.put("credict_number" , cardEntity.getCredictnumber()+"");
+                goodsJson.add(obj);
+                i++;
+            }
+            System.out.println(goodsJson);
+            out.println(goodsJson);
             out.flush();
             out.close();
         }

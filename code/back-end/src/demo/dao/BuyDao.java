@@ -37,4 +37,18 @@ public class BuyDao {
             throw e;
         }
     }
+    public List<BuyEntity> getAll() {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction tx = null;
+        tx = session.beginTransaction();
+        try {
+            @SuppressWarnings("unchecked")
+            List<BuyEntity> list = session.createQuery("FROM BuyEntity ").list();
+            tx.commit();
+            return list;
+        } catch (RuntimeException e) {
+            tx.rollback();
+            throw e;
+        }
+    }
 }

@@ -41,6 +41,23 @@ public class ApplyDao {
             throw e;
         }
     }
+    public List<ApplyEntity> getPaid(){
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction tx = null;tx = session.beginTransaction();
+        try {
+
+
+            // 方式一：使用HQL语句
+            @SuppressWarnings("unchecked")
+            List<ApplyEntity> list = session.createQuery("FROM ApplyEntity").list(); // 使用HQL查询
+
+            tx.commit();
+            return list;
+        } catch (RuntimeException e) {
+            tx.rollback();
+            throw e;
+        }
+    }
 
     public List<ApplyEntity> getByUsername(String name) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
