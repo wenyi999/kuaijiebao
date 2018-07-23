@@ -8,6 +8,8 @@ import Debtsmanagement from './userzone/Debtsmanagement';
 import Itemmanagement from './userzone/Itemmanagement';
 import Loanapply from './userzone/Loanapply';
 import Loanmanagement from './userzone/Loanmanagement';
+import Creditapply from './userzone/Creditapply';
+import Cardmanagement from './userzone/Cardmanagement';
 import {message} from "antd/lib/index";
 
 
@@ -25,8 +27,8 @@ class Userzone extends Component {
 
         this.state = {
             collapsed: false,
-            state:0,
-            username:'',
+            state: 0,
+            username: '',
         };
 
     }
@@ -34,92 +36,105 @@ class Userzone extends Component {
 
     onCollapse = (collapsed) => {
         console.log(collapsed);
-        this.setState({ collapsed });
+        this.setState({collapsed});
     }
 
-    getCookie= (cname) =>{
+    getCookie = (cname) => {
         let name = cname + "=";
         let ca = document.cookie.split(';');
-        for(let i=0; i<ca.length; i++) {
+        for (let i = 0; i < ca.length; i++) {
             let c = ca[i].trim();
-            if (c.indexOf(name) === 0) return c.substring(name.length,c.length);
+            if (c.indexOf(name) === 0) return c.substring(name.length, c.length);
         }
         return "";
     }
-    componentWillMount(){
+
+    componentWillMount() {
         let username = this.getCookie('username')
-        this.setState({username:username})
+        this.setState({username: username})
 
     }
 
-    goLogin = () =>{
+    goLogin = () => {
         Control.go('/login', {name: 'React-Keeper'})
     }
 
     render() {
         if (this.state.username !== ''){
-        return (
 
 
-            <HashRouter>
-            <Layout style={{ minHeight: '100vh' }}>
-                <Sider
-                    collapsible
-                    collapsed={this.state.collapsed}
-                    onCollapse={this.onCollapse}
-                >
-                    <div className="logo" />
-                    <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-                        <SubMenu
-                            key="sub1"
-                            title={<span><Icon type="user" /><span>个人中心</span></span>}
-                        >
-                            <Menu.Item key="1"><Link to={"userzone/userinformation"}>个人信息</Link>
-                        </Menu.Item>
-                        </SubMenu>
-                        <SubMenu
-                            key="sub2"
-                            title={<span><Icon type="bank" /><span>我要理财</span></span>}
-                        >
-                            <Menu.Item key="2"><Link to={"userzone/debtsmanagement"}>债权管理</Link></Menu.Item>
-                            <Menu.Item key="3"><Link to={"userzone/itemmanagement"}>理财产品管理</Link></Menu.Item>
-                        </SubMenu>
-                        <SubMenu
-                            key="sub3"
-                            title={<span><Icon type="wallet" /><span>我要借款</span></span>}
-                        >
-                            <Menu.Item key="4"><Link to={"userzone/loanapply"}>借款申请</Link></Menu.Item>
-                            <Menu.Item key="5"><Link to={"userzone/loanmanagement"}>借款管理</Link></Menu.Item>
-                        </SubMenu>
-                 
-                    </Menu>
-                </Sider>
-                <Layout>
-                        <Content >
-
-                            <Route  path="userinformation" component={ Userinformation }/>
-                            <Route  path="/debtsmanagement" component={ Debtsmanagement }/>
-                            <Route  path="/itemmanagement" component={ Itemmanagement }/>
-                            <Route  path="/loanapply" component={ Loanapply }/>
-                            <Route  path="/loanmanagement" component={ Loanmanagement }/>
-
-                    </Content>
-
-                </Layout>
-            </Layout>
-            </HashRouter>
-
-
-        );}
-        else{
             return (
-                <div>
-                    <div style={{marginLeft:"40%",marginTop:"20"}}>您尚未登录</div>
-                    <Button type = 'primary' onClick = {this.goLogin.bind(this)}>立即登录</Button>
-                </div>
+
+
+                <HashRouter>
+                    <Layout style={{minHeight: '100vh'}}>
+                        <Sider
+                            collapsible
+                            collapsed={this.state.collapsed}
+                            onCollapse={this.onCollapse}
+                        >
+                            <div className="logo"/>
+                            <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+                                <SubMenu
+                                    key="sub1"
+                                    title={<span><Icon type="user"/><span>个人中心</span></span>}
+                                >
+                                    <Menu.Item key="1"><Link to={"userzone/userinformation"}>个人信息</Link>
+                                    </Menu.Item>
+                                    <Menu.Item key="2"><Link to={"userzone/creditapply"}>额度申请</Link>
+                                    </Menu.Item>
+                                    <Menu.Item key="3"><Link to={"userzone/cardmanagement"}>银行卡管理</Link>
+                                    </Menu.Item>
+                                </SubMenu>
+                                <SubMenu
+                                    key="sub2"
+                                    title={<span><Icon type="bank"/><span>我要理财</span></span>}
+                                >
+                                    <Menu.Item key="4"><Link to={"userzone/debtsmanagement"}>债权管理</Link></Menu.Item>
+                                    <Menu.Item key="5"><Link to={"userzone/itemmanagement"}>理财产品管理</Link></Menu.Item>
+                                </SubMenu>
+                                <SubMenu
+                                    key="sub3"
+                                    title={<span><Icon type="wallet"/><span>我要借款</span></span>}
+                                >
+                                    <Menu.Item key="6"><Link to={"userzone/loanapply"}>借款申请</Link></Menu.Item>
+                                    <Menu.Item key="7"><Link to={"userzone/loanmanagement"}>借款管理</Link></Menu.Item>
+                                </SubMenu>
+
+                            </Menu>
+                        </Sider>
+                        <Layout>
+                            <Content>
+
+                                <Route path="userinformation" component={Userinformation}/>
+                                <Route path="/debtsmanagement" component={Debtsmanagement}/>
+                                <Route path="/itemmanagement" component={Itemmanagement}/>
+                                <Route path="/loanapply" component={Loanapply}/>
+                                <Route path="/loanmanagement" component={Loanmanagement}/>
+                                <Route path="/creditapply" component={Creditapply}/>
+                                <Route path="/cardmanagement" component={Cardmanagement}/>
+
+                            </Content>
+
+                        </Layout>
+                    </Layout>
+                </HashRouter>
+
+
             );
         }
+    else{
+        return (
+            <div>
+                <div style={{marginLeft:"40%",marginTop:"20"}}>您尚未登录</div>
+                <Button type = 'primary' onClick = {this.goLogin.bind(this)}>立即登录</Button>
+            </div>
+        );
     }
+    }
+
+
+
 
 }
 export default Userzone;

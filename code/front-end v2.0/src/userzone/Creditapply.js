@@ -9,7 +9,7 @@ const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 
 
-class Loanapply extends Component {
+class Creditapply extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,22 +26,26 @@ class Loanapply extends Component {
             if (!err) {
                 console.log('Received values of form: ', values);
                 $.ajax({
-                        type: 'POST',
-                        url: "/apply",
-                        data: {
-                            applyStatus:5,
-                            username:this.state.username,
-                            creditor_name:"Null",
-                            amount:values.money,
-                            rate:values.rate,
-                            repaytime:values.repaytime,
-                            status:0
-
+                    type: 'POST',
+                    url: "/credit",
+                    data: {
+                        creditStatus:4,
+                        username:this.state.username,
+                        edubg:values.edubg,
+                        job:values.job,
+                        income:values.income,
+                        ask:values.ask,
                     },
                     success: function (data) {
-                        if (data === 'applyAdded') {
+                        if (data === 'asking') {
                             message.info("申请成功！！！");
-                           this.setState({
+                            this.setState({
+                                sys_inf: data
+                            });
+                        }
+                        else if (data === 'has asked') {
+                            message.info("您已申请，请等待申请结果!");
+                            this.setState({
                                 sys_inf: data
                             });
                         }
@@ -52,7 +56,7 @@ class Loanapply extends Component {
                             });
                         }
 
-                    }.bind(this),
+                }.bind(this),
 
                 });
             }
@@ -126,18 +130,11 @@ class Loanapply extends Component {
                 </FormItem>
 
                 <FormItem
-                        {...formItemLayout}
-                        label="信用额度"
-                    >
-                        10000
-                    </FormItem>
-
-                <FormItem
                     {...formItemLayout}
-                    label="借款金额"
+                    label="学历"
                 >
-                    {getFieldDecorator('money', {
-                        rules: [{ required: true, message: '请输入借款金额!' }],
+                    {getFieldDecorator('edubg', {
+                        rules: [{ required: true, message: '请输入学历!' }],
                     })(
                         <Input  style={{ width: '100%' }} />
                     )}
@@ -145,10 +142,10 @@ class Loanapply extends Component {
 
                 <FormItem
                     {...formItemLayout}
-                    label="借款时限(月为单位）"
+                    label="学校"
                 >
-                    {getFieldDecorator('repaytime', {
-                        rules: [{ required: true, message: '请输入借款时限!' }],
+                    {getFieldDecorator('job', {
+                        rules: [{ required: true, message: '请输入学校!' }],
                     })(
                         <Input  style={{ width: '100%' }} />
                     )}
@@ -156,10 +153,10 @@ class Loanapply extends Component {
 
                 <FormItem
                     {...formItemLayout}
-                    label="利率(%为单位)"
+                    label="月收入"
                 >
-                    {getFieldDecorator('rate', {
-                        rules: [{ required: true, message: '请输入利率!' }],
+                    {getFieldDecorator('income', {
+                        rules: [{ required: true, message: '请输入月收入!' }],
                     })(
                         <Input  style={{ width: '100%' }} />
                     )}
@@ -167,26 +164,16 @@ class Loanapply extends Component {
 
                 <FormItem
                     {...formItemLayout}
-                    label="借款理由"
+                    label="申请额度"
                 >
-                    {getFieldDecorator('reason', {
-                        rules: [{ required: true, message: '请输入借款理由!' }],
+                    {getFieldDecorator('ask', {
+                        rules: [{ required: true, message: '请输入申请额度!' }],
                     })(
                         <Input  style={{ width: '100%' }} />
                     )}
                 </FormItem>
 
 
-
-
-
-                <FormItem {...tailFormItemLayout}>
-                    {getFieldDecorator('agreement', {
-                        valuePropName: 'checked',
-                    })(
-                        <Checkbox>已阅读并同意借款说明</Checkbox>
-                    )}
-                </FormItem>
                 <FormItem {...tailFormItemLayout}>
                     <Button type="primary" htmlType="submit">提交</Button>
                 </FormItem>
@@ -197,9 +184,9 @@ class Loanapply extends Component {
 
 }
 
-Loanapply = Form.create()(Loanapply);
+Creditapply = Form.create()(Creditapply);
 
 
 
 
-export default Loanapply;
+export default Creditapply;

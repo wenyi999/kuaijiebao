@@ -66,9 +66,14 @@ class debtsmanagement extends Component {
     }
 
     componentWillMount(){
-        let username = this.getCookie('username')
-        this.setState({username:username})
-        this.loadlist();
+        let name = this.getCookie('username')
+        console.log(name);
+        this.setState({username:name},() => {
+            console.log(this.state.data);
+            this.loadlist();
+
+        })
+
     }
 
     render() {

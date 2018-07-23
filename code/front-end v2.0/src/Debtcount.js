@@ -22,7 +22,7 @@ map.map((item,index) => {
   })
 })
 */
-class debtcount extends Component {
+class debtscount extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -76,16 +76,11 @@ class debtcount extends Component {
     return (
         <Table dataSource={dataSource}
                /*expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>}*/
-               pagination={{
-                   onChange: (page) => {
-                       console.log(page);
-                   },
-                   pageSize: 8,
-               }}>
+        >
             <Column
                 title="用户名"
                 dataIndex="username"
-                key="username"
+                key="uesrname"
             />
             <Column
                 title="借款总金额"
@@ -102,4 +97,4 @@ class debtcount extends Component {
 }
 }
 
-export default debtcount;
+export default debtscount;

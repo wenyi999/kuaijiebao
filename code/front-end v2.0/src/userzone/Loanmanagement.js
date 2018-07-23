@@ -44,13 +44,22 @@ class Loanmanagement extends Component {
         }];
 
         this.state = {
-            username:"",
+            username:'',
             dataSource: []
         };
         this.loadlist = this.loadlist.bind(this);
     }
+    getCookie= (cname) =>{
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for(let i=0; i<ca.length; i++) {
+            let c = ca[i].trim();
+            if (c.indexOf(name) === 0) return c.substring(name.length,c.length);
+        }
+        return "";
+    }
     loadlist(){
-        //const dataSource = [...this.state.dataSource];
+        console.log(this.state.username)
         $.ajax({
             type:'GET',
             url:'/apply',
@@ -68,6 +77,7 @@ class Loanmanagement extends Component {
                 console.log(data)
             }
         })
+        console.log(this.state.username)
     }
     onRepay = (a_id) => {
         //const dataSource = [...this.state.dataSource];
@@ -90,20 +100,17 @@ class Loanmanagement extends Component {
             }
         })
     }
-    getCookie= (cname) =>{
-        let name = cname + "=";
-        let ca = document.cookie.split(';');
-        for(let i=0; i<ca.length; i++) {
-            let c = ca[i].trim();
-            if (c.indexOf(name) === 0) return c.substring(name.length,c.length);
-        }
-        return "";
-    }
+
 
     componentWillMount(){
-        let username = this.getCookie('username')
-        this.setState({username:username})
-        this.loadlist();
+        let name = this.getCookie('username')
+        console.log(name);
+        this.setState({username:name},() => {
+            console.log(this.state.data);
+            this.loadlist();
+
+        })
+
     }
 
     render() {

@@ -33,7 +33,8 @@ class Help extends Component {
 
 
                 <div>
-                <Button type="primary" style={{marginLeft:"40%"}}> 在线咨询</Button>
+                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2947711395&site=qq&menu=yes">
+                        <img border="0" src="http://wpa.qq.com/pa?p=2:2947711395:53" alt="在线QQ咨询" title="在线QQ咨询"/></a>
                 </div>
         </Collapse>)
 
