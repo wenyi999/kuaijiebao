@@ -1,21 +1,8 @@
 import { Layout, Menu, Icon ,Button} from 'antd';
 import React, { Component } from 'react';
-import {HashRouter, Route, Link, Control} from 'react-keeper'
-
+import {Link, Control} from 'react-keeper'
 import './App.css';
-import Creditcheckout from './adminzone/Creditcheckout';
-import Creditmanagement from './adminzone/Creditmanagement';
-import Debtcount from './adminzone/Debtcount';
-import Paycount from './adminzone/Paycount';
-import Personitemcount from './adminzone/Personitemcount';
-import Itemcount from './adminzone/Itemcount';
-
 import {message} from "antd/lib/index";
-
-
-
-
-
 
 const { Content,Sider } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -96,14 +83,7 @@ class Adminzone extends Component {
                         </Sider>
                         <Layout>
                             <Content>
-
-                                <Route path="creditcheckout" component={Creditcheckout}/>
-                                <Route path="/creditmanagement" component={Creditmanagement}/>
-                                <Route path="/debtcount" component={Debtcount}/>
-                                <Route path="/paycount" component={Paycount}/>
-                                <Route path="/personitemcount" component={Personitemcount}/>
-                                <Route path="/itemcount" component={Itemcount}/>
-
+                                {this.props.children}
                             </Content>
 
                         </Layout>

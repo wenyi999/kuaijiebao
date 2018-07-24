@@ -10,8 +10,20 @@ import Itemlist from './Itemlist';
 import Debtsinformation from './Debtsinformation';
 import Help from './Help';
 import Adminzone from './Adminzone';
-
-
+import Userinformation from './userzone/Userinformation';
+import Debtsmanagement from './userzone/Debtsmanagement';
+import Itemmanagement from './userzone/Itemmanagement';
+import Loanapply from './userzone/Loanapply';
+import Loanmanagement from './userzone/Loanmanagement';
+import Creditapply from './userzone/Creditapply';
+import Cardmanagement from './userzone/Cardmanagement';
+import {message} from "antd/lib/index";
+import Creditcheckout from './adminzone/Creditcheckout';
+import Creditmanagement from './adminzone/Creditmanagement';
+import Debtcount from './adminzone/Debtcount';
+import Paycount from './adminzone/Paycount';
+import Personitemcount from './adminzone/Personitemcount';
+import Itemcount from './adminzone/Itemcount';
 const { Header, Content, Footer } = Layout;
 
 class App extends Component {
@@ -36,7 +48,7 @@ class App extends Component {
                     <Menu
                         theme="dark"
                         mode="horizontal"
-                        defaultSelectedKeys={['2']}
+                        defaultSelectedKeys={['1']}
                         style={{ lineHeight: '64px' }}
                     >
                         <Menu.Item key="1"><Link to="home">首页</Link></Menu.Item>
@@ -52,15 +64,29 @@ class App extends Component {
                 <Content style={{ padding: '0 50px' }}>
 
                     <div style={{ background: '#fff', minHeight: 500}}>
-
-                          <Route  path="/home" component={ Home }/>
-                          <Route  path="/login" component={ Login } />
-                          <Route  path="/register" component={ Register }/>
-                          <Route  path="/userzone" component={ Userzone }/>
-                          <Route  path="/itemlist" component={ Itemlist }/>
-                          <Route  path="/debtsinformation" component={ Debtsinformation }/>
-                          <Route  path="/help" component={ Help } />
-                        <Route  path="/adminzone" component={ Adminzone }/>
+                        <Route  index path="/home" component={ Home }/>
+                        <Route  path="/login" component={ Login } />
+                        <Route  path="/register" component={ Register }/>
+                        <Route  path="/userzone" component={ Userzone }>
+                            <Route path="/userinformation" component={Userinformation}/>
+                            <Route path="/debtsmanagement" component={Debtsmanagement}/>
+                            <Route path="/itemmanagement" component={Itemmanagement}/>
+                            <Route path="/loanapply" component={Loanapply}/>
+                            <Route path="/loanmanagement" component={Loanmanagement}/>
+                            <Route path="/creditapply" component={Creditapply}/>
+                            <Route path="/cardmanagement" component={Cardmanagement}/>
+                        </Route>
+                        <Route  path="/itemlist" component={ Itemlist }/>
+                        <Route  path="/debtsinformation" component={ Debtsinformation }/>
+                        <Route  path="/help" component={ Help } />
+                        <Route  path="/adminzone" component={ Adminzone }>
+                            <Route path="/creditcheckout" component={Creditcheckout}/>
+                            <Route path="/creditmanagement" component={Creditmanagement}/>
+                            <Route path="/debtcount" component={Debtcount}/>
+                            <Route path="/paycount" component={Paycount}/>
+                            <Route path="/personitemcount" component={Personitemcount}/>
+                            <Route path="/itemcount" component={Itemcount}/>
+                        </Route>
 
                 </div>
                 </Content>

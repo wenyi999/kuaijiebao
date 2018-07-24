@@ -1,21 +1,7 @@
 import { Layout, Menu, Icon ,Button} from 'antd';
 import React, { Component } from 'react';
-import {HashRouter, Route, Link, Control} from 'react-keeper'
-
+import {Link, Control} from 'react-keeper'
 import './App.css';
-import Userinformation from './userzone/Userinformation';
-import Debtsmanagement from './userzone/Debtsmanagement';
-import Itemmanagement from './userzone/Itemmanagement';
-import Loanapply from './userzone/Loanapply';
-import Loanmanagement from './userzone/Loanmanagement';
-import Creditapply from './userzone/Creditapply';
-import Cardmanagement from './userzone/Cardmanagement';
-import {message} from "antd/lib/index";
-
-
-
-
-
 
 const { Content,Sider } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -64,9 +50,6 @@ class Userzone extends Component {
 
 
             return (
-
-
-                <HashRouter>
                     <Layout style={{minHeight: '100vh'}}>
                         <Sider
                             collapsible
@@ -105,22 +88,11 @@ class Userzone extends Component {
                         </Sider>
                         <Layout>
                             <Content>
-
-                                <Route path="userinformation" component={Userinformation}/>
-                                <Route path="/debtsmanagement" component={Debtsmanagement}/>
-                                <Route path="/itemmanagement" component={Itemmanagement}/>
-                                <Route path="/loanapply" component={Loanapply}/>
-                                <Route path="/loanmanagement" component={Loanmanagement}/>
-                                <Route path="/creditapply" component={Creditapply}/>
-                                <Route path="/cardmanagement" component={Cardmanagement}/>
-
+                            {this.props.children}
                             </Content>
 
                         </Layout>
                     </Layout>
-                </HashRouter>
-
-
             );
         }
     else{
