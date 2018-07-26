@@ -4,16 +4,17 @@ import { Collapse,Button } from 'antd';
 const Panel = Collapse.Panel;
 
 const text1 = `
-  解决方案1
+  在个人中心的个人信息点击申请额度可以申请提高自己的初始额度；
+  多进行出借，借款，购买理财商品等方式可以提高自己的信用额度。
   
 `;
 
 const text2 = `
-  解决方案2
+  一天之内
   
 `;
 const text3 = `
-  解决方案3
+  这取决于你的借款条件，如果有人愿意借给你，你的借款需求就能马上完成
   
 `;
 
@@ -21,13 +22,13 @@ class Help extends Component {
     render() {
         return(
             <Collapse accordion>
-            <Panel header="问题1" key="1">
+            <Panel header="我怎么提高自己的信用额度" key="1">
                 <p>{text1}</p>
             </Panel>
-            <Panel header="问题2" key="2">
+            <Panel header="我申请的信用额度一般多久可以得到审批" key="2">
                 <p>{text2}</p>
             </Panel>
-            <Panel header="问题3" key="3">
+            <Panel header="我申请的借款什么时候可以到" key="3">
                 <p>{text3}</p>
             </Panel>
 

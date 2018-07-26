@@ -47,8 +47,8 @@ class Register extends Component {
                         phone: this.props.form.getFieldValue("phone"),
                         name: values.name,
                         ID: values.id,
-                        credit: 60,
-                        line_of_credit: 1000
+                        credit: 10,
+                        line_of_credit: 100
                     },
                     success: function (data) {
                         if (data === 'ADDUSER') {

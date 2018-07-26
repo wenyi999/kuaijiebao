@@ -52,7 +52,7 @@ class Adminzone extends Component {
             return (
 
 
-                <HashRouter>
+
                     <Layout style={{minHeight: '100vh'}}>
                         <Sider
                             collapsible
@@ -88,7 +88,7 @@ class Adminzone extends Component {
 
                         </Layout>
                     </Layout>
-                </HashRouter>
+
 
 
             );
@@ -97,7 +97,7 @@ class Adminzone extends Component {
             return (
                 <div>
                     <div style={{marginLeft: "40%", marginTop: "20"}}>请以管理员身份登录</div>
-                    <Button type='primary' onClick={this.goLogin.bind(this)}>立即登录</Button>
+                    <Button type='primary' style={{marginLeft:"40%",marginTop:"20"}}  onClick={this.goLogin.bind(this)}>立即登录</Button>
                 </div>
             );
         }

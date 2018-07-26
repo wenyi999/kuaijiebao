@@ -46,10 +46,16 @@ class Userzone extends Component {
     }
 
     render() {
-        if (this.state.username !== ''){
+        if (this.state.username !== '') {
+            if (this.state.username === 'admin') {
+                return(
+                <div>
+                <div style={{marginLeft:"40%",marginTop:"20"}}>您已以管理员身份登录</div>
+                </div>)
+            }
 
-
-            return (
+            else {
+                return (
                     <Layout style={{minHeight: '100vh'}}>
                         <Sider
                             collapsible
@@ -88,18 +94,19 @@ class Userzone extends Component {
                         </Sider>
                         <Layout>
                             <Content>
-                            {this.props.children}
+                                {this.props.children}
                             </Content>
 
                         </Layout>
                     </Layout>
-            );
+                );
+            }
         }
     else{
         return (
             <div>
                 <div style={{marginLeft:"40%",marginTop:"20"}}>您尚未登录</div>
-                <Button type = 'primary' onClick = {this.goLogin.bind(this)}>立即登录</Button>
+                <Button type = 'primary' style={{marginLeft:"40%",marginTop:"20"}} onClick = {this.goLogin.bind(this)}>立即登录</Button>
             </div>
         );
     }

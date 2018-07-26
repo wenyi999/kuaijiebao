@@ -47,6 +47,19 @@ class EditableCell extends React.Component {
         });
     }
 
+    checkInput = (rule, value, callback) => {
+        if (value && value < 1000) {
+            callback('不能低于1000的投资金额');
+        }
+        else if (isNaN(value) === true){
+            callback('请输入数字');
+        }
+        else {
+            callback();
+        }
+    }
+
+
     handleClickOutside = (e) => {
         const { editing } = this.state;
         if (editing && this.cell !== e.target && !this.cell.contains(e.target)) {
@@ -65,13 +78,9 @@ class EditableCell extends React.Component {
         });
     }
 
-    checkInput = (rule, value, callback) => {
-        if (value && value < 1000) {
-            callback('You must pay at least 1000');
-        } else {
-            callback();
-        }
-    }
+
+
+
 
     render() {
         const { editing } = this.state;
@@ -127,6 +136,7 @@ class EditableCell extends React.Component {
     }
 }
 
+
 class Itemlist extends Component {
     constructor(props) {
         super(props);
@@ -168,11 +178,14 @@ class Itemlist extends Component {
         return "";
     }
 
+
+
     loadlist(){
         const dataSource = [...this.state.dataSource];
         $.ajax({
             type:'GET',
             url:'/goods',
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
             success:function(data){
                 message.info("success");
                 this.setState({

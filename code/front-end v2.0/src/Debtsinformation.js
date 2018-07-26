@@ -26,7 +26,7 @@ class Debtsinformation extends Component {
             title: '借款期限(月）',
             dataIndex: 'repaytime',
         },{
-            title: '月利率（%）',
+            title: '月利率',
             dataIndex: 'rate',
         },{
             title: '方式',

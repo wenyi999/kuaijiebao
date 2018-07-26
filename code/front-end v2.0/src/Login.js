@@ -27,7 +27,7 @@ class Login extends Component {
     /*Control.go('/userzone/'+ values.username, {name: 'React-Keeper'})*/
 
     setCookie = (cname,cvalue,exmin) => {
-        message.info('start set cookie')
+
         let d = new Date();
         d.setTime(d.getTime()+(exmin*60*1000));
         let expires = "expires="+d.toGMTString();
@@ -71,13 +71,14 @@ class Login extends Component {
                     success: function (data) {
                         if (data === 'USER') {
                             message.info("登录成功！！！");
-                            console.log("set cookie")
+
 
                             console.log(values.username);
                             this.setCookie("username",values.username,15)
 
-
-                            Control.go('/userzone', {name: 'React-Keeper'})
+                            if (values.username==='admin'){Control.go('/adminzone', {name:'React-keeper'})}
+                            else{
+                            Control.go('/userzone', {name: 'React-Keeper'})}
                             console.log(values.username);
                         }
                         if (data === 'WRONGPWD' || data === 'NULL') {
@@ -140,7 +141,7 @@ class Login extends Component {
             return (
                 <div >
                     <div style={{marginLeft:"40%",marginTop:"20"}}>您已登录</div>
-                    <Button type = 'primary' onClick = {this.deleteCookie.bind(this,'username')}>退出登录</Button>
+                    <Button type = 'primary' style={{marginLeft:"40%",marginTop:"20"}} onClick = {this.deleteCookie.bind(this,'username')}>退出登录</Button>
                 </div>
             );
         }

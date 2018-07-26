@@ -15,9 +15,31 @@ class Loanapply extends Component {
         this.state = {
             username:'',
             sys_inf: '',
-            //dataSource: []
+            dataSource:0.0,
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.loadlist = this.loadlist.bind(this);
+    }
+    loadlist(){
+        console.log(this.state.username)
+        $.ajax({
+            type:'GET',
+            url:'/apply',
+            data:{
+                username:this.state.username,
+                applyStatus: 10
+            },
+            success:function(data){
+                message.info("success");
+                this.setState({
+                    dataSource:parseFloat(data)
+                });
+            }.bind(this),
+            error:function(data){
+                console.log(data)
+            }
+        })
+        console.log(this.state.username)
     }
 
     handleSubmit = (e) => {
@@ -31,7 +53,7 @@ class Loanapply extends Component {
                         data: {
                             applyStatus:5,
                             username:this.state.username,
-                            creditor_name:"Null",
+                            creditor_name:"null",
                             amount:values.money,
                             rate:values.rate,
                             repaytime:values.repaytime,
@@ -44,6 +66,7 @@ class Loanapply extends Component {
                            this.setState({
                                 sys_inf: data
                             });
+                            Control.go('/userzone/loanmanagement/', {name: 'React-Keeper'});
                         }
                         else {
                             message.info("未知错误");
@@ -72,13 +95,30 @@ class Loanapply extends Component {
         }
         return "";
     }
+    checkInput = (rule, value, callback) => {
+        if (value && value > this.state.dataSource) {
+            callback('不能超过额度');
+        }
+        else if (isNaN(value) === true){
+            callback('请输入数字');
+        }
+        else {
+            callback();
+        }
+    }
     componentWillMount(){
-        let username = this.getCookie('username')
-        this.setState({username:username})
+        let name = this.getCookie('username')
+
+        this.setState({username:name},() => {
+            console.log(this.state.data);
+            this.loadlist();
+
+        })
 
     }
 
     render() {
+
         const { getFieldDecorator } = this.props.form;
         const { autoCompleteResult } = this.state;
 
@@ -129,7 +169,7 @@ class Loanapply extends Component {
                         {...formItemLayout}
                         label="信用额度"
                     >
-                        10000
+                    {this.state.dataSource}
                     </FormItem>
 
                 <FormItem
@@ -137,7 +177,7 @@ class Loanapply extends Component {
                     label="借款金额"
                 >
                     {getFieldDecorator('money', {
-                        rules: [{ required: true, message: '请输入借款金额!' }],
+                        rules: [{ required: true, message: '请输入借款金额!' },{validator:this.checkInput}],
                     })(
                         <Input  style={{ width: '100%' }} />
                     )}
@@ -156,7 +196,7 @@ class Loanapply extends Component {
 
                 <FormItem
                     {...formItemLayout}
-                    label="利率(%为单位)"
+                    label="利率"
                 >
                     {getFieldDecorator('rate', {
                         rules: [{ required: true, message: '请输入利率!' }],
