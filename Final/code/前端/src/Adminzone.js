@@ -66,16 +66,17 @@ class Adminzone extends Component {
                                     title={<span><Icon type="user"/><span>信用管理</span></span>}
                                 >
                                     <Menu.Item key="1"><Link to={"adminzone/creditcheckout"}>信用审核</Link></Menu.Item>
-                                    <Menu.Item key="2"><Link to={"adminzone/creditmanagement"}>信用管理</Link></Menu.Item>
+                                    <Menu.Item key="2"><Link to={"adminzone/informationmanagement"}>信息修改审核</Link></Menu.Item>
+                                    <Menu.Item key="3"><Link to={"adminzone/creditmanagement"}>信用管理</Link></Menu.Item>
                                 </SubMenu>
                                 <SubMenu
                                     key="sub2"
                                     title={<span><Icon type="bank"/><span>统计</span></span>}
                                 >
-                                    <Menu.Item key="3"><Link to={"adminzone/debtcount"}>借款统计</Link></Menu.Item>
-                                    <Menu.Item key="4"><Link to={"adminzone/paycount"}>支出统计</Link></Menu.Item>
-                                    <Menu.Item key="5"><Link to={"adminzone/personitemcount"}>理财统计</Link></Menu.Item>
-                                    <Menu.Item key="6"><Link to={"adminzone/itemcount"}>理财产品统计</Link></Menu.Item>
+                                    <Menu.Item key="4"><Link to={"adminzone/debtcount"}>借款统计</Link></Menu.Item>
+                                    <Menu.Item key="5"><Link to={"adminzone/paycount"}>支出统计</Link></Menu.Item>
+                                    <Menu.Item key="6"><Link to={"adminzone/personitemcount"}>理财统计</Link></Menu.Item>
+                                    <Menu.Item key="7"><Link to={"adminzone/itemcount"}>理财产品统计</Link></Menu.Item>
                                 </SubMenu>
 
 

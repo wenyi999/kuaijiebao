@@ -24,7 +24,21 @@ import Debtcount from './adminzone/Debtcount';
 import Paycount from './adminzone/Paycount';
 import Personitemcount from './adminzone/Personitemcount';
 import Itemcount from './adminzone/Itemcount';
+import Informationapply from './userzone/Informationapply'
+import Informationmanagement from './adminzone/Informationmanagement';
 const { Header, Content, Footer } = Layout;
+
+var deleteCookie=function(cname){
+    document.cookie = cname +"=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  }
+  
+window.onload = function(e){
+    deleteCookie("username")
+}
+  
+window.onbeforeunload = function(e){
+    e.returnValue="bye"
+}
 
 class App extends Component {
     constructor(props) {
@@ -33,11 +47,6 @@ class App extends Component {
             username:"",
         };
     }
-
-
-
-
-
 
     render() {
         return (
@@ -75,6 +84,7 @@ class App extends Component {
                             <Route path="/loanmanagement" component={Loanmanagement}/>
                             <Route path="/creditapply" component={Creditapply}/>
                             <Route path="/cardmanagement" component={Cardmanagement}/>
+                            <Route path="/informationapply" component={Informationapply}/>
                         </Route>
                         <Route  path="/itemlist" component={ Itemlist }/>
                         <Route  path="/debtsinformation" component={ Debtsinformation }/>
@@ -86,6 +96,7 @@ class App extends Component {
                             <Route path="/paycount" component={Paycount}/>
                             <Route path="/personitemcount" component={Personitemcount}/>
                             <Route path="/itemcount" component={Itemcount}/>
+                            <Route path="/informationmanagement" component={Informationmanagement}/>
                         </Route>
 
                 </div>

@@ -70,24 +70,26 @@ class Userzone extends Component {
                                 >
                                     <Menu.Item key="1"><Link to={"userzone/userinformation"}>个人信息</Link>
                                     </Menu.Item>
-                                    <Menu.Item key="2"><Link to={"userzone/creditapply"}>额度申请</Link>
+                                    <Menu.Item key="2"><Link to={"userzone/informationapply"}>个人信息修改</Link>
                                     </Menu.Item>
-                                    <Menu.Item key="3"><Link to={"userzone/cardmanagement"}>银行卡管理</Link>
+                                    <Menu.Item key="3"><Link to={"userzone/creditapply"}>额度申请</Link>
+                                    </Menu.Item>
+                                    <Menu.Item key="4"><Link to={"userzone/cardmanagement"}>银行卡管理</Link>
                                     </Menu.Item>
                                 </SubMenu>
                                 <SubMenu
                                     key="sub2"
                                     title={<span><Icon type="bank"/><span>我要理财</span></span>}
                                 >
-                                    <Menu.Item key="4"><Link to={"userzone/debtsmanagement"}>债权管理</Link></Menu.Item>
-                                    <Menu.Item key="5"><Link to={"userzone/itemmanagement"}>理财产品管理</Link></Menu.Item>
+                                    <Menu.Item key="5"><Link to={"userzone/debtsmanagement"}>债权管理</Link></Menu.Item>
+                                    <Menu.Item key="6"><Link to={"userzone/itemmanagement"}>理财产品管理</Link></Menu.Item>
                                 </SubMenu>
                                 <SubMenu
                                     key="sub3"
                                     title={<span><Icon type="wallet"/><span>我要借款</span></span>}
                                 >
-                                    <Menu.Item key="6"><Link to={"userzone/loanapply"}>借款申请</Link></Menu.Item>
-                                    <Menu.Item key="7"><Link to={"userzone/loanmanagement"}>借款管理</Link></Menu.Item>
+                                    <Menu.Item key="7"><Link to={"userzone/loanapply"}>借款申请</Link></Menu.Item>
+                                    <Menu.Item key="8"><Link to={"userzone/loanmanagement"}>借款管理</Link></Menu.Item>
                                 </SubMenu>
 
                             </Menu>

@@ -4,7 +4,11 @@ import { Table} from 'antd';
 import {message} from "antd/lib/index";
 import $ from 'jquery';
 import {Control} from "react-keeper";
-
+import echarts from 'echarts/lib/echarts';
+import  'echarts/lib/chart/bar';
+// 引入提示框和标题组件
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/title';
 const { Column } = Table;
 
 /*const creditcheckout_list = []
@@ -26,7 +30,9 @@ class paycount extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        dataSource: []
+      dataSource: [],
+      u_list:[],
+      p_list:[]
     };
     this.loadlist = this.loadlist.bind(this);
     this.checkright = this.checkright.bind(this)
@@ -61,6 +67,38 @@ class paycount extends Component {
         this.setState({
             dataSource:JSON.parse(data)
         })
+        var user_list = [];
+        var pay_list=[];
+        message.info("success")
+        console.log(this.state.dataSource)
+        for (var i = 0;i < this.state.dataSource.length;i++){
+          user_list.push(this.state.dataSource[i].username);
+          pay_list.push(parseFloat(this.state.dataSource[i].amount));
+        }
+        console.log(user_list[0]);
+        console.log("success1");
+        this.setState({
+          u_list:user_list,
+          p_list:pay_list
+        })
+        console.log(this.state.u_list[0]);
+        var myChart = echarts.init(document.getElementById('main'));
+        // 绘制图表
+        console.log("success3")
+        myChart.setOption({
+            title: { text: '个人支出情况' },
+            tooltip: {},
+            xAxis: {
+                data: this.state.u_list
+            },
+            yAxis: {},
+            series: [{
+                name: '金额',
+                type: 'bar',
+                color: '#0066FF',
+                data: this.state.p_list
+            }]
+        });
       }.bind(this),
       error : function(data){
         message.info("error")
@@ -72,34 +110,10 @@ class paycount extends Component {
     this.loadlist():null
   }
   render() {
-      const {dataSource} = this.state
     return (
-        <Table dataSource={dataSource}
-               /*expandedRowRender={record => <p style={{ margin: 0 }}>{record.description}</p>}*/
-               pagination={{
-                   onChange: (page) => {
-                       console.log(page);
-                   },
-                   pageSize: 8,
-               }}>
-            <Column
-                title="用户名"
-                dataIndex="username"
-                key="username"
-            />
-            <Column
-                title="出借总金额"
-                dataIndex="amount"
-                key="amount"
-            />
-
-
-
-        </Table>
+      <div id="main" style={{ width: 600, height: 600 }}></div>
     );
-
-
-}
+  }
 }
 
 export default paycount;
