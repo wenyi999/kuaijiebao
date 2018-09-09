@@ -23,8 +23,8 @@
         <property name="hbm2ddl.auto">update</property>
         <mapping class="demo.domain.ApplyEntity"/>
         <mapping resource="demo/domain/ApplyEntity.hbm.xml"/>
-        <mapping class="demo.domain.BuyEntity"/>
         <mapping resource="demo/domain/BuyEntity.hbm.xml"/>
+        <mapping class="demo.domain.BuyEntity"/>
         <mapping class="demo.domain.CardEntity"/>
         <mapping resource="demo/domain/CardEntity.hbm.xml"/>
         <mapping class="demo.domain.GoodsEntity"/>
@@ -33,5 +33,8 @@
         <mapping resource="demo/domain/UserEntity.hbm.xml"/>
         <mapping class="demo.domain.AskEntity"/>
         <mapping resource="demo/domain/AskEntity.hbm.xml"/>
+        <mapping class="demo.domain.ChangeEntity"/>
+        <mapping resource="demo/domain/ChangeEntity.hbm.xml"/>
+
     </session-factory>
 </hibernate-configuration>

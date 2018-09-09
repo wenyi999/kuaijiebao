@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by Boyi on 2018/7/13.
+ * Created by Boyi on 2018/9/8.
  */
 public class BuyEntityPK implements Serializable {
     private String username;

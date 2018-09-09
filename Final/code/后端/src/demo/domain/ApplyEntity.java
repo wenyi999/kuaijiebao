@@ -3,7 +3,7 @@ package demo.domain;
 import javax.persistence.*;
 
 /**
- * Created by Boyi on 2018/7/13.
+ * Created by Boyi on 2018/9/8.
  */
 @Entity
 @Table(name = "apply", schema = "kjb", catalog = "")

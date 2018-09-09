@@ -3,7 +3,7 @@ package demo.domain;
 import javax.persistence.*;
 
 /**
- * Created by Boyi on 2018/7/13.
+ * Created by Boyi on 2018/9/8.
  */
 @Entity
 @Table(name = "buy", schema = "kjb", catalog = "")
@@ -34,7 +34,7 @@ public class BuyEntity {
     }
 
     @Basic
-    @Column(name = "amount", nullable = false)
+    @Column(name = "amount", nullable = false, precision = 2)
     public double getAmount() {
         return amount;
     }
@@ -50,7 +50,7 @@ public class BuyEntity {
 
         BuyEntity buyEntity = (BuyEntity) o;
 
-        if (amount != buyEntity.amount) return false;
+        if (Double.compare(buyEntity.amount, amount) != 0) return false;
         if (username != null ? !username.equals(buyEntity.username) : buyEntity.username != null) return false;
         if (itemname != null ? !itemname.equals(buyEntity.itemname) : buyEntity.itemname != null) return false;
 
@@ -59,9 +59,11 @@ public class BuyEntity {
 
     @Override
     public int hashCode() {
-        int result = username != null ? username.hashCode() : 0;
+        int result;
+        long temp;
+        result = username != null ? username.hashCode() : 0;
         result = 31 * result + (itemname != null ? itemname.hashCode() : 0);
-        long temp = Double.doubleToLongBits(amount);
+        temp = Double.doubleToLongBits(amount);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }

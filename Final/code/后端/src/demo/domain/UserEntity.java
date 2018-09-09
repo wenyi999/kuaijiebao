@@ -3,7 +3,7 @@ package demo.domain;
 import javax.persistence.*;
 
 /**
- * Created by Boyi on 2018/7/13.
+ * Created by Boyi on 2018/9/8.
  */
 @Entity
 @Table(name = "user", schema = "kjb", catalog = "")
@@ -88,7 +88,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "line", nullable = false)
+    @Column(name = "line", nullable = false, precision = 2)
     public double getLine() {
         return line;
     }
@@ -106,7 +106,7 @@ public class UserEntity {
 
         if (uid != that.uid) return false;
         if (credit != that.credit) return false;
-        if (line != that.line) return false;
+        if (Double.compare(that.line, line) != 0) return false;
         if (username != null ? !username.equals(that.username) : that.username != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
@@ -118,14 +118,16 @@ public class UserEntity {
 
     @Override
     public int hashCode() {
-        int result = uid;
+        int result;
+        long temp;
+        result = uid;
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + credit;
-        long temp = Double.doubleToLongBits(line);
+        temp = Double.doubleToLongBits(line);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }

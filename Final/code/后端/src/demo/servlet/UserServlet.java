@@ -1,6 +1,8 @@
 package demo.servlet;
 
+import demo.dao.ChangeDao;
 import demo.dao.UserDao;
+import demo.domain.ChangeEntity;
 import demo.domain.UserEntity;
 import net.sf.json.JSONObject;
 
@@ -10,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 
 public class UserServlet extends HttpServlet {
@@ -75,7 +80,78 @@ public class UserServlet extends HttpServlet {
         try {
             PrintWriter out = response.getWriter();
             response.setContentType("text/html;charset=utf-8");
-            String username =  request.getParameter("username");
+            String userStatus = request.getParameter("userStatus");
+            if (userStatus.equals("1")){
+                String username =  request.getParameter("username");
+                String phone = request.getParameter("phone");
+                ChangeEntity changeEntity=new ChangeEntity();
+                changeEntity.setUsername(username);
+                changeEntity.setPhone(phone);
+                ChangeDao changeDao=new ChangeDao();
+                changeDao.add(changeEntity);
+                out.print(1);
+                out.flush();
+                out.close();
+            }
+            else if (userStatus.equals("2")){
+                String username =  request.getParameter("username");
+                System.out.println(username+"0");
+                ChangeDao changeDao=new ChangeDao();
+                changeDao.delete(username);
+                List<ChangeEntity> result=changeDao.getAll();
+                Iterator<ChangeEntity> it = result.iterator();
+                ArrayList<JSONObject> applyJson = new ArrayList<JSONObject>();
+                while (it.hasNext()) {
+                    ChangeEntity goodsEntity = it.next();
+                    JSONObject obj = new JSONObject();
+                    obj.put("username" , goodsEntity.getUsername());
+                    obj.put("phone" , goodsEntity.getPhone());
+                    applyJson.add(obj);
+                }
+                out.print(applyJson);
+                out.flush();
+                out.close();
+            }
+            else if(userStatus.equals("3")){
+                ChangeDao changeDao=new ChangeDao();
+                List<ChangeEntity> result=changeDao.getAll();
+                Iterator<ChangeEntity> it = result.iterator();
+                ArrayList<JSONObject> applyJson = new ArrayList<JSONObject>();
+                while (it.hasNext()) {
+                    ChangeEntity goodsEntity = it.next();
+                    JSONObject obj = new JSONObject();
+                    obj.put("username" , goodsEntity.getUsername());
+                    obj.put("phone" , goodsEntity.getPhone());
+                    applyJson.add(obj);
+                }
+                out.print(applyJson);
+                out.flush();
+                out.close();
+            }
+            else {
+                String username =  request.getParameter("username");
+                ChangeDao changeDao=new ChangeDao();
+                UserDao userDao=new UserDao();
+                UserEntity userEntity=userDao.getByUsername(username);
+                ChangeEntity changeEntity=changeDao.getByUsername(username);
+                userEntity.setPhone(changeEntity.getPhone());
+                userDao.update(userEntity);
+                changeDao.delete(username);
+                List<ChangeEntity> result=changeDao.getAll();
+                Iterator<ChangeEntity> it = result.iterator();
+                ArrayList<JSONObject> applyJson = new ArrayList<JSONObject>();
+                while (it.hasNext()) {
+                    ChangeEntity goodsEntity = it.next();
+                    JSONObject obj = new JSONObject();
+                    obj.put("username" , goodsEntity.getUsername());
+                    obj.put("phone" , goodsEntity.getPhone());
+                    applyJson.add(obj);
+                }
+                out.print(applyJson);
+                out.flush();
+                out.close();
+            }
+            /*String username =  request.getParameter("username");
             String phone = request.getParameter("phone");
             String ID = request.getParameter("id");
             int credit = Integer.parseInt(request.getParameter("credit_level"));
@@ -93,9 +169,9 @@ public class UserServlet extends HttpServlet {
             newuser.setCredit(credit);
             newuser.setLine(line);
             dao.update(newuser);
-            out.println("userInfoUpdated");
+            out.print("userInfoUpdated");
             out.flush();
-            out.close();
+            out.close();*/
         }
         catch (Exception ex) {
             if ( ServletException.class.isInstance( ex ) ) {
