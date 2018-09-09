@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="demo.domain.BuyEntity" table="buy" schema="kjb">
+        <composite-id mapped="true" class="demo.domain.BuyEntityPK">
+            <key-property name="username">
+                <column name="username" sql-type="varchar(255)"/>
+            </key-property>
+            <key-property name="itemname">
+                <column name="itemname" sql-type="varchar(255)"/>
+            </key-property>
+        </composite-id>
+        <property name="amount">
+            <column name="amount" sql-type="double(8,2)" precision="8" scale="2"/>
+        </property>
+    </class>
+</hibernate-mapping>

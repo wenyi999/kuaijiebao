@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="demo.domain.ApplyEntity" table="apply" schema="kjb">
+        <id name="aid">
+            <column name="aid" sql-type="int(11)"/>
+            <generator class="increment"/>
+        </id>
+        <property name="username">
+            <column name="username" sql-type="varchar(255)"/>
+        </property>
+        <property name="amount">
+            <column name="amount" sql-type="double(8,2)" precision="8" scale="2"/>
+        </property>
+        <property name="rate">
+            <column name="rate" sql-type="double(8,2)" precision="8" scale="2"/>
+        </property>
+        <property name="repaytime">
+            <column name="repaytime" sql-type="int(11)"/>
+        </property>
+        <property name="creditorname">
+            <column name="creditorname" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="status">
+            <column name="status" sql-type="int(255)"/>
+        </property>
+    </class>
+</hibernate-mapping>

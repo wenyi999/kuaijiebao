@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="demo.domain.AskEntity" table="ask" schema="kjb">
+        <id name="username">
+            <column name="username" sql-type="varchar(255)"/>
+        </id>
+        <property name="edubg">
+            <column name="edubg" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="job">
+            <column name="job" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="income">
+            <column name="income" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="ask">
+            <column name="ask" sql-type="varchar(255)" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

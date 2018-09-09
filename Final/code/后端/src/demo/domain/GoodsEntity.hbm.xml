@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="demo.domain.GoodsEntity" table="goods" schema="kjb">
+        <id name="itemname">
+            <column name="itemname" sql-type="varchar(255)"/>
+        </id>
+        <property name="price">
+            <column name="price" sql-type="float(10,2)" precision="10" scale="2"/>
+        </property>
+        <property name="itemrate">
+            <column name="itemrate" sql-type="float" precision="-1"/>
+        </property>
+    </class>
+</hibernate-mapping>
