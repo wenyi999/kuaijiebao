@@ -35,26 +35,26 @@ CREATE TABLE `apply` (
 -- ----------------------------
 -- Records of apply
 -- ----------------------------
-INSERT INTO `apply` VALUES ('0', 'songboyi@sjtu.edu.cn', '1000.00', '0.05', '2', 'null', '0');
-INSERT INTO `apply` VALUES ('1', 'luyixing@sjtu.edu.cn', '200.00', '0.01', '2', 'songboyi@sjtu.edu.cn', '1');
-INSERT INTO `apply` VALUES ('2', 'songboyi@sjtu.edu.cn', '300.00', '0.03', '1', 'chenyonghua@sjtu.edu.cn', '2');
-INSERT INTO `apply` VALUES ('3', 'songboyi@sjtu.edu.cn', '400.00', '0.10', '3', 'zhangxiao@sjtu.edu.cn', '2');
-INSERT INTO `apply` VALUES ('4', 'songboyi@sjtu.edu.cn', '100.00', '0.02', '2', 'luyixing@sjtu.edu.cn', '2');
-INSERT INTO `apply` VALUES ('5', 'chenyonghua@sjtu.edu.cn', '100.00', '0.08', '5', 'songboyi@sjtu.edu.cn', '1');
-INSERT INTO `apply` VALUES ('6', 'chenyonghua@sjtu.edu.cn', '12300.00', '0.02', '12', '674041200@qq.com', '1');
-INSERT INTO `apply` VALUES ('7', 'songboyi@sjtu.edu.cn', '1200.00', '0.05', '3', 'luyixing@sjtu.edu.cn', '2');
-INSERT INTO `apply` VALUES ('8', '674041200@qq.com', '1200.00', '0.05', '4', 'songboyi@sjtu.edu.cn', '1');
-INSERT INTO `apply` VALUES ('9', 'zhangxiao@sjtu.edu.cn', '100.00', '0.12', '15', 'luyixing@sjtu.edu.cn', '2');
-INSERT INTO `apply` VALUES ('10', 'chenyonghua@sjtu.edu.cn', '100.00', '0.03', '11', 'songboyi@sjtu.edu.cn', '1');
-INSERT INTO `apply` VALUES ('11', 'luyixing@sjtu.edu.cn', '100.00', '0.03', '12', 'songboyi@sjtu.edu.cn', '1');
-INSERT INTO `apply` VALUES ('12', 'luyixing@sjtu.edu.cn', '123400.00', '0.07', '24', 'songboyi@sjtu.edu.cn', '1');
-INSERT INTO `apply` VALUES ('13', 'songboyi@sjtu.edu.cn', '100.00', '0.05', '12', 'null', '0');
-INSERT INTO `apply` VALUES ('14', 'songboyi@sjtu.edu.cn', '1000.00', '0.05', '12', 'null', '0');
-INSERT INTO `apply` VALUES ('15', 'songboyi@sjtu.edu.cn', '1000.00', '0.05', '12', 'null', '0');
-INSERT INTO `apply` VALUES ('16', 'songboyi@sjtu.edu.cn', '1000.00', '0.05', '10', 'null', '0');
-INSERT INTO `apply` VALUES ('17', 'zhangxiao@sjtu.edu.cn', '2000.00', '0.05', '3', 'null', '0');
-INSERT INTO `apply` VALUES ('18', 'songboyi@sjtu.edu.cn', '1000.00', '0.05', '12', 'null', '0');
-INSERT INTO `apply` VALUES ('19', 'luyixing@sjtu.edu.cn', '123400.00', '0.01', '10', 'songboyi@sjtu.edu.cn', '1');
+INSERT INTO `apply` VALUES ('0', 'songboyi@777.cn', '1000.00', '0.05', '2', 'null', '0');
+INSERT INTO `apply` VALUES ('1', 'luyixing@777.cn', '200.00', '0.01', '2', 'songboyi@777.cn', '1');
+INSERT INTO `apply` VALUES ('2', 'songboyi@777.cn', '300.00', '0.03', '1', 'chenyonghua@777.cn', '2');
+INSERT INTO `apply` VALUES ('3', 'songboyi@777.cn', '400.00', '0.10', '3', 'zhangxiao@777.cn', '2');
+INSERT INTO `apply` VALUES ('4', 'songboyi@777.cn', '100.00', '0.02', '2', 'luyixing@777.cn', '2');
+INSERT INTO `apply` VALUES ('5', 'chenyonghua@777.cn', '100.00', '0.08', '5', 'songboyi@777.cn', '1');
+INSERT INTO `apply` VALUES ('6', 'chenyonghua@777.cn', '12300.00', '0.02', '12', '674041200@777.cn', '1');
+INSERT INTO `apply` VALUES ('7', 'songboyi@777.cn', '1200.00', '0.05', '3', 'luyixing@777.cn', '2');
+INSERT INTO `apply` VALUES ('8', '674041200@777.cn', '1200.00', '0.05', '4', 'songboyi@777.cn', '1');
+INSERT INTO `apply` VALUES ('9', 'zhangxiao@777.cn', '100.00', '0.12', '15', 'luyixing@777.cn', '2');
+INSERT INTO `apply` VALUES ('10', 'chenyonghua@777.cn', '100.00', '0.03', '11', 'songboyi@777.cn', '1');
+INSERT INTO `apply` VALUES ('11', 'luyixing@777.cn', '100.00', '0.03', '12', 'songboyi@777.cn', '1');
+INSERT INTO `apply` VALUES ('12', 'luyixing@777.cn', '123400.00', '0.07', '24', 'songboyi@777.cn', '1');
+INSERT INTO `apply` VALUES ('13', 'songboyi@777.cn', '100.00', '0.05', '12', 'null', '0');
+INSERT INTO `apply` VALUES ('14', 'songboyi@777.cn', '1000.00', '0.05', '12', 'null', '0');
+INSERT INTO `apply` VALUES ('15', 'songboyi@777.cn', '1000.00', '0.05', '12', 'null', '0');
+INSERT INTO `apply` VALUES ('16', 'songboyi@777.cn', '1000.00', '0.05', '10', 'null', '0');
+INSERT INTO `apply` VALUES ('17', 'zhangxiao@777.cn', '2000.00', '0.05', '3', 'null', '0');
+INSERT INTO `apply` VALUES ('18', 'songboyi@777.cn', '1000.00', '0.05', '12', 'null', '0');
+INSERT INTO `apply` VALUES ('19', 'luyixing@777.cn', '123400.00', '0.01', '10', 'songboyi@777.cn', '1');
 
 -- ----------------------------
 -- Table structure for ask
@@ -72,9 +72,9 @@ CREATE TABLE `ask` (
 -- ----------------------------
 -- Records of ask
 -- ----------------------------
-INSERT INTO `ask` VALUES ('chenyonghua@sjtu.edu.cn', 'university', 'SJTU', '4000', '4000');
-INSERT INTO `ask` VALUES ('luyixing@sjtu.edu.cn', 'work', 'Teacher', '100000', '50000');
-INSERT INTO `ask` VALUES ('zhangxiao@sjtu.edu.cn', 'university', 'SJTU', '3000', '3000');
+INSERT INTO `ask` VALUES ('chenyonghua@777.cn', 'university', 'SJTU', '4000', '4000');
+INSERT INTO `ask` VALUES ('luyixing@777.cn', 'work', 'Teacher', '100000', '50000');
+INSERT INTO `ask` VALUES ('zhangxiao@777.cn', 'university', 'SJTU', '3000', '3000');
 
 -- ----------------------------
 -- Table structure for buy
@@ -91,20 +91,20 @@ CREATE TABLE `buy` (
 -- ----------------------------
 -- Records of buy
 -- ----------------------------
-INSERT INTO `buy` VALUES ('674041200@qq.com', 'StateGrid', '3000.00');
-INSERT INTO `buy` VALUES ('chenyonghua@sjtu.edu.cn', 'Benz', '3000.00');
-INSERT INTO `buy` VALUES ('chenyonghua@sjtu.edu.cn', 'BMW', '2000.00');
-INSERT INTO `buy` VALUES ('chenyonghua@sjtu.edu.cn', 'STimmortal', '5000.00');
-INSERT INTO `buy` VALUES ('luyixing@sjtu.edu.cn', 'Benz', '2000.00');
-INSERT INTO `buy` VALUES ('luyixing@sjtu.edu.cn', 'BMW', '2000.00');
-INSERT INTO `buy` VALUES ('luyixing@sjtu.edu.cn', 'HuaWei', '3000.00');
-INSERT INTO `buy` VALUES ('songboyi@sjtu.edu.cn', 'Benz', '2000.00');
-INSERT INTO `buy` VALUES ('songboyi@sjtu.edu.cn', 'BMW', '2000.00');
-INSERT INTO `buy` VALUES ('songboyi@sjtu.edu.cn', 'HuaWei', '3000.00');
-INSERT INTO `buy` VALUES ('songboyi@sjtu.edu.cn', 'STimmortal', '2000.00');
-INSERT INTO `buy` VALUES ('zhangxiao@sjtu.edu.cn', 'HuaWei', '2000.00');
-INSERT INTO `buy` VALUES ('zhangxiao@sjtu.edu.cn', 'StateGrid', '1000.00');
-INSERT INTO `buy` VALUES ('zhangxiao@sjtu.edu.cn', 'STimmortal', '3000.00');
+INSERT INTO `buy` VALUES ('674041200@777.cn', 'StateGrid', '3000.00');
+INSERT INTO `buy` VALUES ('chenyonghua@777.cn', 'Benz', '3000.00');
+INSERT INTO `buy` VALUES ('chenyonghua@777.cn', 'BMW', '2000.00');
+INSERT INTO `buy` VALUES ('chenyonghua@777.cn', 'STimmortal', '5000.00');
+INSERT INTO `buy` VALUES ('luyixing@777.cn', 'Benz', '2000.00');
+INSERT INTO `buy` VALUES ('luyixing@777.cn', 'BMW', '2000.00');
+INSERT INTO `buy` VALUES ('luyixing@777.cn', 'HuaWei', '3000.00');
+INSERT INTO `buy` VALUES ('songboyi@777.cn', 'Benz', '2000.00');
+INSERT INTO `buy` VALUES ('songboyi@777.cn', 'BMW', '2000.00');
+INSERT INTO `buy` VALUES ('songboyi@777.cn', 'HuaWei', '3000.00');
+INSERT INTO `buy` VALUES ('songboyi@777.cn', 'STimmortal', '2000.00');
+INSERT INTO `buy` VALUES ('zhangxiao@777.cn', 'HuaWei', '2000.00');
+INSERT INTO `buy` VALUES ('zhangxiao@777.cn', 'StateGrid', '1000.00');
+INSERT INTO `buy` VALUES ('zhangxiao@777.cn', 'STimmortal', '3000.00');
 
 -- ----------------------------
 -- Table structure for card
@@ -121,13 +121,13 @@ CREATE TABLE `card` (
 -- ----------------------------
 -- Records of card
 -- ----------------------------
-INSERT INTO `card` VALUES ('6217002710000684092', '674041200@qq.com');
-INSERT INTO `card` VALUES ('6217002710000684123', 'luyixing@sjtu.edu.cn');
-INSERT INTO `card` VALUES ('6217001210024455220', 'songboyi@sjtu.edu.cn');
-INSERT INTO `card` VALUES ('6217002710000684874', 'songboyi@sjtu.edu.cn');
-INSERT INTO `card` VALUES ('6222000200124846494', 'songboyi@sjtu.edu.cn');
-INSERT INTO `card` VALUES ('6222600260001072444', 'songboyi@sjtu.edu.cn');
-INSERT INTO `card` VALUES ('6217002710000684871', 'zhangxiao@sjtu.edu.cn');
+INSERT INTO `card` VALUES ('0217002710000684092', '674041200@777.cn');
+INSERT INTO `card` VALUES ('0217002710000684123', 'luyixing@777.cn');
+INSERT INTO `card` VALUES ('0217001210024455220', 'songboyi@777.cn');
+INSERT INTO `card` VALUES ('0217002710000684874', 'songboyi@777.cn');
+INSERT INTO `card` VALUES ('0222000200124846494', 'songboyi@777.cn');
+INSERT INTO `card` VALUES ('0222600260001072444', 'songboyi@777.cn');
+INSERT INTO `card` VALUES ('0217002710000684871', 'zhangxiao@777.cn');
 
 -- ----------------------------
 -- Table structure for change
@@ -186,10 +186,10 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('0', '674041200@qq.com', '123', '330206198837483920', '18654689029', '张三', '9', '1000.00');
-INSERT INTO `user` VALUES ('1', 'admin', 'admin123', '320203199810010459', '13365393728', 'admin', '10', '1000.00');
-INSERT INTO `user` VALUES ('2', 'songboyi@sjtu.edu.cn', '123', '320203199710040353', '11111111111', '宋博仪', '100', '10000.00');
-INSERT INTO `user` VALUES ('3', 'zhangxiao@sjtu.edu.cn', '123', '33020620000229011X', '13964736726', '张啸', '10', '3000.00');
-INSERT INTO `user` VALUES ('4', 'luyixing@sjtu.edu.cn', '123', '310102199604015647', '13774983638', '陆一行', '8', '100.00');
-INSERT INTO `user` VALUES ('5', 'chenyonghua@sjtu.edu.cn', '123', '310102199706014236', '13874846836', '陈永桦', '8', '8000.00');
-INSERT INTO `user` VALUES ('7', '727106198@qq.com', '123', '330206192837483920', '18612348902', '王辰', '10', '100.00');
+INSERT INTO `user` VALUES ('0', '674041200@777.cn', '123', '030206198837483920', '11111111112', '张三', '9', '1000.00');
+INSERT INTO `user` VALUES ('1', 'admin', 'admin123', '020203199810010459', '11111111110', 'admin', '10', '1000.00');
+INSERT INTO `user` VALUES ('2', 'songboyi@777.cn', '123', '020203199710040353', '11111111111', '宋博仪', '100', '10000.00');
+INSERT INTO `user` VALUES ('3', 'zhangxiao@777.cn', '123', '03020620000229011X', '11111111113', '张啸', '10', '3000.00');
+INSERT INTO `user` VALUES ('4', 'luyixing@777.cn', '123', '010102199604015647', '11111111114', '陆一行', '8', '100.00');
+INSERT INTO `user` VALUES ('5', 'chenyonghua@777.cn', '123', '010102199706014236', '11111111115', '陈永桦', '8', '8000.00');
+INSERT INTO `user` VALUES ('7', '727106198@777.cn', '123', '030206192837483920', '11111111116', '王辰', '10', '100.00');
